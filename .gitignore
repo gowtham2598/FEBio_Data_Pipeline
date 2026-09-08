@@ -1,0 +1,20 @@
+# Temporary workspace files
+temp_folder/
+*.tmp
+
+# Python & Jupyter artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+
+# FEBio binary plot files
+*.xplt
+
+# Ignore generated simulation VTKs except for sim_001 (sample demonstration run)
+sample_ellipsoid_parametric_dataset/dataset/sim_*/*.vtk
+!sample_ellipsoid_parametric_dataset/dataset/sim_001/*.vtk
+
+# OS artifacts
+.DS_Store
+Thumbs.db

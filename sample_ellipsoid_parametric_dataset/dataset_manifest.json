@@ -1,0 +1,197 @@
+{
+    "dataset_info": {
+        "created_at": "2026-09-06T22:31:24.577870",
+        "base_template": "ellipsoid-muscle-contraction.feb",
+        "total_simulations": 7,
+        "successful_simulations": 7,
+        "random_seed": 42,
+        "varied_parameters": {
+            "c1": {
+                "range": [
+                    10.0,
+                    16.0
+                ],
+                "precision": 1,
+                "description": "Matrix shear modulus"
+            },
+            "Tmax": {
+                "range": [
+                    0.8,
+                    1.2
+                ],
+                "precision": 1,
+                "description": "Peak isometric active tension"
+            },
+            "ca0": {
+                "range": [
+                    3.8,
+                    4.8
+                ],
+                "precision": 1,
+                "description": "Half-activation calcium concentration"
+            }
+        },
+        "constant_parameters": {
+            "Material": {
+                "name": "Material1",
+                "type": "trans iso Mooney-Rivlin",
+                "density": "1",
+                "k": "100",
+                "c2": "0",
+                "c3": "2.07",
+                "c4": "61.44",
+                "c5": "640.7",
+                "lam_max": "1.03",
+                "fiber_vector": "0,0,1"
+            },
+            "Active_Contraction": {
+                "ascl": "1",
+                "camax": "0",
+                "beta": "4.75",
+                "l0": "1.58",
+                "refl": "2.04"
+            },
+            "Control_Settings": {
+                "analysis": "DYNAMIC",
+                "time_steps": "50",
+                "step_size": "0.1"
+            }
+        },
+        "last_updated": "2026-09-07T23:24:15.342790"
+    },
+    "simulations": {
+        "sim_001": {
+            "status": "COMPLETED",
+            "parameters": {
+                "c1": 13.8,
+                "Tmax": 0.8,
+                "ca0": 4.1
+            },
+            "folder": "dataset/sim_001",
+            "files": {
+                "feb_file": "sim_001.feb",
+                "log_file": "sim_001.log",
+                "solver_log": "febio_execution.log",
+                "nodal_csv": "nodal_timeseries.csv",
+                "element_csv": "element_timeseries.csv",
+                "metadata_json": "simulation_metadata.json",
+                "vtk_count": 51
+            },
+            "solve_time_sec": 1.17
+        },
+        "sim_002": {
+            "status": "COMPLETED",
+            "parameters": {
+                "c1": 11.3,
+                "Tmax": 1.1,
+                "ca0": 4.5
+            },
+            "folder": "dataset/sim_002",
+            "files": {
+                "feb_file": "sim_002.feb",
+                "log_file": "sim_002.log",
+                "solver_log": "febio_execution.log",
+                "nodal_csv": "nodal_timeseries.csv",
+                "element_csv": "element_timeseries.csv",
+                "metadata_json": "simulation_metadata.json",
+                "vtk_count": 51
+            },
+            "solve_time_sec": 1.07
+        },
+        "sim_003": {
+            "status": "COMPLETED",
+            "parameters": {
+                "c1": 15.4,
+                "Tmax": 0.8,
+                "ca0": 4.2
+            },
+            "folder": "dataset/sim_003",
+            "files": {
+                "feb_file": "sim_003.feb",
+                "log_file": "sim_003.log",
+                "solver_log": "febio_execution.log",
+                "nodal_csv": "nodal_timeseries.csv",
+                "element_csv": "element_timeseries.csv",
+                "metadata_json": "simulation_metadata.json",
+                "vtk_count": 51
+            },
+            "solve_time_sec": 1.01
+        },
+        "sim_004": {
+            "status": "COMPLETED",
+            "parameters": {
+                "c1": 10.2,
+                "Tmax": 0.9,
+                "ca0": 4.3
+            },
+            "folder": "dataset/sim_004",
+            "files": {
+                "feb_file": "sim_004.feb",
+                "log_file": "sim_004.log",
+                "solver_log": "febio_execution.log",
+                "nodal_csv": "nodal_timeseries.csv",
+                "element_csv": "element_timeseries.csv",
+                "metadata_json": "simulation_metadata.json",
+                "vtk_count": 51
+            },
+            "solve_time_sec": 1.0
+        },
+        "sim_005": {
+            "status": "COMPLETED",
+            "parameters": {
+                "c1": 10.2,
+                "Tmax": 0.9,
+                "ca0": 4.4
+            },
+            "folder": "dataset/sim_005",
+            "files": {
+                "feb_file": "sim_005.feb",
+                "log_file": "sim_005.log",
+                "solver_log": "febio_execution.log",
+                "nodal_csv": "nodal_timeseries.csv",
+                "element_csv": "element_timeseries.csv",
+                "metadata_json": "simulation_metadata.json",
+                "vtk_count": 51
+            },
+            "solve_time_sec": 1.02
+        },
+        "sim_006": {
+            "status": "COMPLETED",
+            "parameters": {
+                "c1": 13.3,
+                "Tmax": 0.9,
+                "ca0": 4.5
+            },
+            "folder": "dataset/sim_006",
+            "files": {
+                "feb_file": "sim_006.feb",
+                "log_file": "sim_006.log",
+                "solver_log": "febio_execution.log",
+                "nodal_csv": "nodal_timeseries.csv",
+                "element_csv": "element_timeseries.csv",
+                "metadata_json": "simulation_metadata.json",
+                "vtk_count": 51
+            },
+            "solve_time_sec": 1.26
+        },
+        "sim_007": {
+            "status": "COMPLETED",
+            "parameters": {
+                "c1": 10.4,
+                "Tmax": 1.0,
+                "ca0": 3.9
+            },
+            "folder": "dataset/sim_007",
+            "files": {
+                "feb_file": "sim_007.feb",
+                "log_file": "sim_007.log",
+                "solver_log": "febio_execution.log",
+                "nodal_csv": "nodal_timeseries.csv",
+                "element_csv": "element_timeseries.csv",
+                "metadata_json": "simulation_metadata.json",
+                "vtk_count": 51
+            },
+            "solve_time_sec": 1.13
+        }
+    }
+}

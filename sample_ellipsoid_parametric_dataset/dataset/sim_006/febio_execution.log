@@ -1,0 +1,1877 @@
+Command: /home/gv2598/FEBioStudio/bin/febio4 -i sim_006.feb
+Elapsed: 1.26s
+Exit code: 0
+
+===========================================================================
+         ________    _________   _______       __     _________            
+        |        |\ |        |\ |       \\    |  |\  /         \\          
+        |    ____|| |    ____|| |    __  ||   |__|| |    ___    ||         
+        |   |\___\| |   |\___\| |   |\_| ||    \_\| |   //  \   ||         
+        |   ||__    |   ||__    |   ||_| ||   |  |\ |  ||    |  ||         
+        |       |\  |       |\  |         \\  |  || |  ||    |  ||         
+        |    ___||  |    ___||  |    ___   || |  || |  ||    |  ||         
+        |   |\__\|  |   |\__\|  |   |\__|  || |  || |  ||    |  ||         
+        |   ||      |   ||___   |   ||__|  || |  || |   \\__/   ||         
+        |   ||      |        |\ |          || |  || |           ||         
+        |___||      |________|| |_________//  |__||  \_________//          
+                                                                           
+      F I N I T E   E L E M E N T S   F O R   B I O M E C H A N I C S      
+                                                                           
+  version 4.12.0
+  FEBio is a registered trademark.                                         
+  copyright (c) 2006-2026 - All rights reserved                            
+                                                                           
+===========================================================================
+
+Starting without configuration file
+Default linear solver: pardiso
+Reading file sim_006.feb ...SUCCESS!
+
+
+]0;(0%) sim_006.feb - FEBio 4.12.0 ]0;(0%) sim_006.feb - FEBio 4.12.0 
+ *************************************************************************
+ * Selecting linear solver pardiso                                       *
+ *************************************************************************
+
+===== beginning time step 1 : 0.1 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+===== reforming stiffness matrix:
+	Nr of equations ........................... : 1827
+	Nr of nonzeroes in stiffness matrix ....... : 33804
+ 1
+ Nonlinear solution status: time= 0.1
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            7.967442e-02    2.291942e-03    0.000000e+00 
+	   energy              5.809217e-04    3.878197e-05    5.809217e-06 
+	   displacement        7.724825e-06    7.724825e-06    7.724825e-12 
+ 2
+ Nonlinear solution status: time= 0.1
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            7.967442e-02    1.016423e-04    0.000000e+00 
+	   energy              5.809217e-04    1.413211e-06    5.809217e-06 
+	   displacement        7.724825e-06    8.357682e-08    8.793502e-12 
+ 3
+ Nonlinear solution status: time= 0.1
+	stiffness updates             = 2
+	right hand side evaluations   = 4
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            7.967442e-02    2.365858e-06    0.000000e+00 
+	   energy              5.809217e-04    3.765254e-08    5.809217e-06 
+	   displacement        7.724825e-06    4.680834e-09    8.846043e-12 
+ 4
+ Nonlinear solution status: time= 0.1
+	stiffness updates             = 3
+	right hand side evaluations   = 5
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            7.967442e-02    1.635912e-07    0.000000e+00 
+	   energy              5.809217e-04    1.575062e-09    5.809217e-06 
+	   displacement        7.724825e-06    1.331951e-10    8.834495e-12 
+ 5
+ Nonlinear solution status: time= 0.1
+	stiffness updates             = 4
+	right hand side evaluations   = 6
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            7.967442e-02    8.095181e-09    0.000000e+00 
+	   energy              5.809217e-04    1.624545e-11    5.809217e-06 
+	   displacement        7.724825e-06    9.035489e-12    8.834041e-12 
+ 6
+ Nonlinear solution status: time= 0.1
+	stiffness updates             = 5
+	right hand side evaluations   = 7
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            7.967442e-02    4.111693e-10    0.000000e+00 
+	   energy              5.809217e-04    1.759485e-12    5.809217e-06 
+	   displacement        7.724825e-06    3.308906e-13    8.834904e-12 
+
+convergence summary
+    number of iterations   : 6
+    number of reformations : 1
+
+------- converged at time : 0.1
+
+]0;(2%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 2 : 0.2 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 0.2
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.224250e+00    2.566990e-04    0.000000e+00 
+	   energy              8.828025e-03    2.946529e-06    8.828025e-05 
+	   displacement        1.167929e-04    1.167929e-04    1.167929e-10 
+ 2
+ Nonlinear solution status: time= 0.2
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.224250e+00    7.668590e-06    0.000000e+00 
+	   energy              8.828025e-03    7.158527e-08    8.828025e-05 
+	   displacement        1.167929e-04    2.859157e-09    1.167851e-10 
+ 3
+ Nonlinear solution status: time= 0.2
+	stiffness updates             = 2
+	right hand side evaluations   = 4
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.224250e+00    3.459791e-07    0.000000e+00 
+	   energy              8.828025e-03    4.965851e-09    8.828025e-05 
+	   displacement        1.167929e-04    2.311482e-10    1.167701e-10 
+ 4
+ Nonlinear solution status: time= 0.2
+	stiffness updates             = 3
+	right hand side evaluations   = 5
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.224250e+00    1.120980e-08    0.000000e+00 
+	   energy              8.828025e-03    1.346860e-10    8.828025e-05 
+	   displacement        1.167929e-04    1.611345e-11    1.167713e-10 
+
+convergence summary
+    number of iterations   : 4
+    number of reformations : 1
+
+------- converged at time : 0.2
+
+]0;(4%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 3 : 0.3 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 0.3
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            7.138926e+00    8.117417e-04    0.000000e+00 
+	   energy              4.018053e-02    1.147387e-05    4.018053e-04 
+	   displacement        4.630185e-04    4.630185e-04    4.630185e-10 
+ 2
+ Nonlinear solution status: time= 0.3
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            7.138926e+00    2.072482e-05    0.000000e+00 
+	   energy              4.018053e-02    5.257612e-08    4.018053e-04 
+	   displacement        4.630185e-04    1.033283e-08    4.631139e-10 
+ 3
+ Nonlinear solution status: time= 0.3
+	stiffness updates             = 2
+	right hand side evaluations   = 4
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            7.138926e+00    8.789892e-07    0.000000e+00 
+	   energy              4.018053e-02    1.392930e-08    4.018053e-04 
+	   displacement        4.630185e-04    5.118605e-10    4.630759e-10 
+ 4
+ Nonlinear solution status: time= 0.3
+	stiffness updates             = 3
+	right hand side evaluations   = 5
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            7.138926e+00    1.284277e-08    0.000000e+00 
+	   energy              4.018053e-02    9.385544e-11    4.018053e-04 
+	   displacement        4.630185e-04    2.249376e-11    4.630738e-10 
+
+convergence summary
+    number of iterations   : 4
+    number of reformations : 1
+
+------- converged at time : 0.3
+
+]0;(6%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 4 : 0.4 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 0.4
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            2.242102e+01    5.799799e-04    0.000000e+00 
+	   energy              1.111593e-01    2.840932e-06    1.111593e-03 
+	   displacement        1.162881e-03    1.162881e-03    1.162881e-09 
+ 2
+ Nonlinear solution status: time= 0.4
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            2.242102e+01    1.376960e-05    0.000000e+00 
+	   energy              1.111593e-01    1.160078e-08    1.111593e-03 
+	   displacement        1.162881e-03    4.690884e-09    1.162768e-09 
+ 3
+ Nonlinear solution status: time= 0.4
+	stiffness updates             = 2
+	right hand side evaluations   = 4
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            2.242102e+01    4.844590e-07    0.000000e+00 
+	   energy              1.111593e-01    6.653162e-09    1.111593e-03 
+	   displacement        1.162881e-03    2.535393e-10    1.162722e-09 
+
+convergence summary
+    number of iterations   : 3
+    number of reformations : 1
+
+------- converged at time : 0.4
+
+]0;(8%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 5 : 0.5 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 0.5
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            5.224605e+01    9.760014e-04    0.000000e+00 
+	   energy              2.371888e-01    1.516456e-05    2.371888e-03 
+	   displacement        2.284583e-03    2.284583e-03    2.284583e-09 
+ 2
+ Nonlinear solution status: time= 0.5
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            5.224605e+01    9.451129e-06    0.000000e+00 
+	   energy              2.371888e-01    9.337744e-08    2.371888e-03 
+	   displacement        2.284583e-03    5.604139e-09    2.284465e-09 
+ 3
+ Nonlinear solution status: time= 0.5
+	stiffness updates             = 2
+	right hand side evaluations   = 4
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            5.224605e+01    1.022349e-07    0.000000e+00 
+	   energy              2.371888e-01    8.673213e-10    2.371888e-03 
+	   displacement        2.284583e-03    7.993233e-11    2.284429e-09 
+
+convergence summary
+    number of iterations   : 3
+    number of reformations : 1
+
+------- converged at time : 0.5
+
+]0;(10%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 6 : 0.6 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 0.6
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.028520e+02    2.087942e-03    0.000000e+00 
+	   energy              4.357094e-01    2.763483e-05    4.357094e-03 
+	   displacement        3.906168e-03    3.906168e-03    3.906168e-09 
+ 2
+ Nonlinear solution status: time= 0.6
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.028520e+02    1.935255e-05    0.000000e+00 
+	   energy              4.357094e-01    2.237536e-07    4.357094e-03 
+	   displacement        3.906168e-03    1.258780e-08    3.906054e-09 
+ 3
+ Nonlinear solution status: time= 0.6
+	stiffness updates             = 2
+	right hand side evaluations   = 4
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.028520e+02    1.249316e-07    0.000000e+00 
+	   energy              4.357094e-01    1.353058e-09    4.357094e-03 
+	   displacement        3.906168e-03    1.564640e-10    3.905995e-09 
+
+convergence summary
+    number of iterations   : 3
+    number of reformations : 1
+
+------- converged at time : 0.6
+
+]0;(12%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 7 : 0.7 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 0.7
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.756919e+02    1.033473e-04    0.000000e+00 
+	   energy              7.175886e-01    3.360348e-05    7.175886e-03 
+	   displacement        6.202821e-03    6.202821e-03    6.202821e-09 
+ 2
+ Nonlinear solution status: time= 0.7
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.756919e+02    3.096400e-06    0.000000e+00 
+	   energy              7.175886e-01    4.630451e-08    7.175886e-03 
+	   displacement        6.202821e-03    1.348637e-09    6.202000e-09 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 0.7
+
+]0;(14%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 8 : 0.8 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 0.8
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            2.698227e+02    6.012441e-05    0.000000e+00 
+	   energy              1.079166e+00    4.131336e-05    1.079166e-02 
+	   displacement        9.214977e-03    9.214977e-03    9.214977e-09 
+ 2
+ Nonlinear solution status: time= 0.8
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            2.698227e+02    6.927905e-07    0.000000e+00 
+	   energy              1.079166e+00    1.305948e-08    1.079166e-02 
+	   displacement        9.214977e-03    4.801113e-10    9.213835e-09 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 0.8
+
+]0;(16%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 9 : 0.9 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 0.9
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            3.862397e+02    6.248801e-06    0.000000e+00 
+	   energy              1.508861e+00    4.970791e-05    1.508861e-02 
+	   displacement        1.278124e-02    1.278124e-02    1.278124e-08 
+ 2
+ Nonlinear solution status: time= 0.9
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            3.862397e+02    4.233308e-08    0.000000e+00 
+	   energy              1.508861e+00    1.062686e-09    1.508861e-02 
+	   displacement        1.278124e-02    1.720724e-10    1.277977e-08 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 0.9
+
+]0;(18%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 10 : 1 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 1
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            5.296136e+02    5.766024e-06    0.000000e+00 
+	   energy              1.994985e+00    6.313871e-05    1.994985e-02 
+	   displacement        1.661313e-02    1.661313e-02    1.661313e-08 
+ 2
+ Nonlinear solution status: time= 1
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            5.296136e+02    2.050491e-08    0.000000e+00 
+	   energy              1.994985e+00    5.544851e-10    1.994985e-02 
+	   displacement        1.661313e-02    1.817981e-10    1.661148e-08 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 1
+
+]0;(20%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 11 : 1.1 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 1.1
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            6.952978e+02    3.408026e-05    0.000000e+00 
+	   energy              2.490746e+00    6.780979e-05    2.490746e-02 
+	   displacement        2.001646e-02    2.001646e-02    2.001646e-08 
+ 2
+ Nonlinear solution status: time= 1.1
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            6.952978e+02    2.535526e-07    0.000000e+00 
+	   energy              2.490746e+00    4.926284e-09    2.490746e-02 
+	   displacement        2.001646e-02    2.964144e-10    2.001511e-08 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 1.1
+
+]0;(22%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 12 : 1.2 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 1.2
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            8.652769e+02    1.048448e-04    0.000000e+00 
+	   energy              2.923830e+00    5.841824e-05    2.923830e-02 
+	   displacement        2.231156e-02    2.231156e-02    2.231156e-08 
+ 2
+ Nonlinear solution status: time= 1.2
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            8.652769e+02    1.454142e-06    0.000000e+00 
+	   energy              2.923830e+00    2.834774e-08    2.923830e-02 
+	   displacement        2.231156e-02    1.096081e-09    2.231036e-08 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 1.2
+
+]0;(24%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 13 : 1.3 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 1.3
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.039607e+03    4.644813e-04    0.000000e+00 
+	   energy              3.297391e+00    2.878763e-05    3.297391e-02 
+	   displacement        2.363773e-02    2.363773e-02    2.363773e-08 
+ 2
+ Nonlinear solution status: time= 1.3
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.039607e+03    1.595160e-05    0.000000e+00 
+	   energy              3.297391e+00    2.943602e-07    3.297391e-02 
+	   displacement        2.363773e-02    8.319795e-09    2.363637e-08 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 1.3
+
+]0;(26%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 14 : 1.4 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 1.4
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.242232e+03    2.050446e-03    0.000000e+00 
+	   energy              3.669014e+00    2.751573e-05    3.669014e-02 
+	   displacement        2.440458e-02    2.440458e-02    2.440458e-08 
+ 2
+ Nonlinear solution status: time= 1.4
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.242232e+03    4.332211e-05    0.000000e+00 
+	   energy              3.669014e+00    5.169161e-07    3.669014e-02 
+	   displacement        2.440458e-02    1.272139e-08    2.440397e-08 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 1.4
+
+]0;(28%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 15 : 1.5 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 1.5
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.480909e+03    4.147748e-03    0.000000e+00 
+	   energy              4.080677e+00    1.064878e-04    4.080677e-02 
+	   displacement        2.511371e-02    2.511371e-02    2.511371e-08 
+ 2
+ Nonlinear solution status: time= 1.5
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.480909e+03    1.641925e-04    0.000000e+00 
+	   energy              4.080677e+00    2.865057e-06    4.080677e-02 
+	   displacement        2.511371e-02    7.647081e-08    2.511501e-08 
+ 3
+ Nonlinear solution status: time= 1.5
+	stiffness updates             = 2
+	right hand side evaluations   = 4
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.480909e+03    9.825978e-07    0.000000e+00 
+	   energy              4.080677e+00    1.509400e-08    4.080677e-02 
+	   displacement        2.511371e-02    6.161549e-09    2.511518e-08 
+
+convergence summary
+    number of iterations   : 3
+    number of reformations : 1
+
+------- converged at time : 1.5
+
+]0;(30%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 16 : 1.6 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 1.6
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.751426e+03    1.592599e-02    0.000000e+00 
+	   energy              4.561209e+00    3.375906e-04    4.561209e-02 
+	   displacement        2.612391e-02    2.612391e-02    2.612391e-08 
+ 2
+ Nonlinear solution status: time= 1.6
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.751426e+03    5.937300e-04    0.000000e+00 
+	   energy              4.561209e+00    6.593069e-06    4.561209e-02 
+	   displacement        2.612391e-02    1.381472e-07    2.612501e-08 
+ 3
+ Nonlinear solution status: time= 1.6
+	stiffness updates             = 2
+	right hand side evaluations   = 4
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.751426e+03    1.977130e-06    0.000000e+00 
+	   energy              4.561209e+00    2.872325e-08    4.561209e-02 
+	   displacement        2.612391e-02    8.832803e-09    2.612469e-08 
+
+convergence summary
+    number of iterations   : 3
+    number of reformations : 1
+
+------- converged at time : 1.6
+
+]0;(32%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 17 : 1.7 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 1.7
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            2.041985e+03    3.278864e-02    0.000000e+00 
+	   energy              5.108523e+00    9.207090e-04    5.108523e-02 
+	   displacement        2.749958e-02    2.749958e-02    2.749958e-08 
+ 2
+ Nonlinear solution status: time= 1.7
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            2.041985e+03    1.588568e-03    0.000000e+00 
+	   energy              5.108523e+00    2.159529e-05    5.108523e-02 
+	   displacement        2.749958e-02    5.222758e-07    2.751337e-08 
+ 3
+ Nonlinear solution status: time= 1.7
+	stiffness updates             = 2
+	right hand side evaluations   = 4
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            2.041985e+03    1.221001e-05    0.000000e+00 
+	   energy              5.108523e+00    1.696275e-07    5.108523e-02 
+	   displacement        2.749958e-02    4.454863e-08    2.751512e-08 
+ 4
+ Nonlinear solution status: time= 1.7
+	stiffness updates             = 3
+	right hand side evaluations   = 5
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            2.041985e+03    8.235305e-07    0.000000e+00 
+	   energy              5.108523e+00    9.020573e-09    5.108523e-02 
+	   displacement        2.749958e-02    2.207855e-10    2.751506e-08 
+
+convergence summary
+    number of iterations   : 4
+    number of reformations : 1
+
+------- converged at time : 1.7
+
+]0;(34%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 18 : 1.8 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 1.8
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            2.326106e+03    1.284300e-02    0.000000e+00 
+	   energy              5.675283e+00    4.229138e-04    5.675283e-02 
+	   displacement        2.915358e-02    2.915358e-02    2.915358e-08 
+ 2
+ Nonlinear solution status: time= 1.8
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            2.326106e+03    5.424270e-04    0.000000e+00 
+	   energy              5.675283e+00    1.045601e-05    5.675283e-02 
+	   displacement        2.915358e-02    3.808633e-07    2.916678e-08 
+ 3
+ Nonlinear solution status: time= 1.8
+	stiffness updates             = 2
+	right hand side evaluations   = 4
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            2.326106e+03    7.273924e-06    0.000000e+00 
+	   energy              5.675283e+00    1.356016e-07    5.675283e-02 
+	   displacement        2.915358e-02    2.287746e-08    2.916871e-08 
+
+convergence summary
+    number of iterations   : 3
+    number of reformations : 1
+
+------- converged at time : 1.8
+
+]0;(36%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 19 : 1.9 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 1.9
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            2.564677e+03    4.862152e-06    0.000000e+00 
+	   energy              6.188042e+00    6.299483e-05    6.188042e-02 
+	   displacement        3.092072e-02    3.092072e-02    3.092072e-08 
+ 2
+ Nonlinear solution status: time= 1.9
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            2.564677e+03    2.911117e-11    0.000000e+00 
+	   energy              6.188042e+00    1.179084e-11    6.188042e-02 
+	   displacement        3.092072e-02    1.063540e-10    3.092040e-08 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 1.9
+
+]0;(38%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 20 : 2 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 2
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            2.728330e+03    6.244031e-06    0.000000e+00 
+	   energy              6.586845e+00    8.283015e-05    6.586845e-02 
+	   displacement        3.258856e-02    3.258856e-02    3.258856e-08 
+ 2
+ Nonlinear solution status: time= 2
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            2.728330e+03    2.753356e-11    0.000000e+00 
+	   energy              6.586845e+00    1.405723e-11    6.586845e-02 
+	   displacement        3.258856e-02    1.692788e-10    3.258798e-08 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 2
+
+]0;(40%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 21 : 2.1 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 2.1
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            2.809414e+03    1.217602e-05    0.000000e+00 
+	   energy              6.818717e+00    1.257435e-04    6.818717e-02 
+	   displacement        3.381560e-02    3.381560e-02    3.381560e-08 
+ 2
+ Nonlinear solution status: time= 2.1
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            2.809414e+03    4.495182e-11    0.000000e+00 
+	   energy              6.818717e+00    2.677291e-11    6.818717e-02 
+	   displacement        3.381560e-02    2.453316e-10    3.381452e-08 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 2.1
+
+]0;(42%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 22 : 2.2 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 2.2
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            2.795461e+03    1.515510e-05    0.000000e+00 
+	   energy              6.832521e+00    1.539575e-04    6.832521e-02 
+	   displacement        3.428067e-02    3.428067e-02    3.428067e-08 
+ 2
+ Nonlinear solution status: time= 2.2
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            2.795461e+03    5.262356e-11    0.000000e+00 
+	   energy              6.832521e+00    3.007605e-11    6.832521e-02 
+	   displacement        3.428067e-02    2.740939e-10    3.427930e-08 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 2.2
+
+]0;(44%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 23 : 2.3 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 2.3
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            2.676302e+03    1.235905e-05    0.000000e+00 
+	   energy              6.617425e+00    1.356695e-04    6.617425e-02 
+	   displacement        3.394027e-02    3.394027e-02    3.394027e-08 
+ 2
+ Nonlinear solution status: time= 2.3
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            2.676302e+03    4.452143e-11    0.000000e+00 
+	   energy              6.617425e+00    1.460205e-11    6.617425e-02 
+	   displacement        3.394027e-02    2.359551e-10    3.393920e-08 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 2.3
+
+]0;(46%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 24 : 2.4 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 2.4
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            2.474019e+03    7.598228e-06    0.000000e+00 
+	   energy              6.222244e+00    8.620127e-05    6.222244e-02 
+	   displacement        3.299093e-02    3.299093e-02    3.299093e-08 
+ 2
+ Nonlinear solution status: time= 2.4
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            2.474019e+03    2.306015e-11    0.000000e+00 
+	   energy              6.222244e+00    1.081928e-12    6.222244e-02 
+	   displacement        3.299093e-02    1.855406e-10    3.299043e-08 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 2.4
+
+]0;(48%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 25 : 2.5 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 2.5
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            2.226775e+03    4.682935e-06    0.000000e+00 
+	   energy              5.714160e+00    5.249828e-05    5.714160e-02 
+	   displacement        3.155571e-02    3.155571e-02    3.155571e-08 
+ 2
+ Nonlinear solution status: time= 2.5
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            2.226775e+03    2.062043e-11    0.000000e+00 
+	   energy              5.714160e+00    2.248695e-12    5.714160e-02 
+	   displacement        3.155571e-02    1.192732e-10    3.155542e-08 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 2.5
+
+]0;(50%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 26 : 2.6 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 2.6
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.967916e+03    3.080424e-06    0.000000e+00 
+	   energy              5.163611e+00    4.485417e-05    5.163611e-02 
+	   displacement        2.974733e-02    2.974733e-02    2.974733e-08 
+ 2
+ Nonlinear solution status: time= 2.6
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.967916e+03    1.878706e-11    0.000000e+00 
+	   energy              5.163611e+00    1.052234e-11    5.163611e-02 
+	   displacement        2.974733e-02    5.709152e-11    2.974692e-08 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 2.6
+
+]0;(52%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 27 : 2.7 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 2.7
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.722021e+03    9.519458e-07    0.000000e+00 
+	   energy              4.647295e+00    3.567627e-05    4.647295e-02 
+	   displacement        2.791731e-02    2.791731e-02    2.791731e-08 
+ 2
+ Nonlinear solution status: time= 2.7
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.722021e+03    1.848822e-12    0.000000e+00 
+	   energy              4.647295e+00    1.842205e-12    4.647295e-02 
+	   displacement        2.791731e-02    2.145176e-11    2.791689e-08 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 2.7
+
+]0;(54%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 28 : 2.8 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 2.8
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.509318e+03    1.482450e-06    0.000000e+00 
+	   energy              4.212679e+00    2.183289e-05    4.212679e-02 
+	   displacement        2.635723e-02    2.635723e-02    2.635723e-08 
+ 2
+ Nonlinear solution status: time= 2.8
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.509318e+03    5.079275e-12    0.000000e+00 
+	   energy              4.212679e+00    5.230441e-12    4.212679e-02 
+	   displacement        2.635723e-02    2.473290e-11    2.635683e-08 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 2.8
+
+]0;(56%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 29 : 2.9 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 2.9
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.329860e+03    2.790135e-06    0.000000e+00 
+	   energy              3.839991e+00    1.173721e-05    3.839991e-02 
+	   displacement        2.497622e-02    2.497622e-02    2.497622e-08 
+ 2
+ Nonlinear solution status: time= 2.9
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.329860e+03    1.076880e-11    0.000000e+00 
+	   energy              3.839991e+00    6.652305e-12    3.839991e-02 
+	   displacement        2.497622e-02    3.173602e-11    2.497583e-08 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 2.9
+
+]0;(58%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 30 : 3 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 3
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.160748e+03    2.815420e-06    0.000000e+00 
+	   energy              3.473405e+00    1.873457e-05    3.473405e-02 
+	   displacement        2.358697e-02    2.358697e-02    2.358697e-08 
+ 2
+ Nonlinear solution status: time= 3
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.160748e+03    5.512002e-12    0.000000e+00 
+	   energy              3.473405e+00    4.302490e-12    3.473405e-02 
+	   displacement        2.358697e-02    4.225672e-11    2.358637e-08 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 3
+
+]0;(60%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 31 : 3.1 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 3.1
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            9.856314e+02    3.972472e-06    0.000000e+00 
+	   energy              3.066823e+00    4.381992e-05    3.066823e-02 
+	   displacement        2.178417e-02    2.178417e-02    2.178417e-08 
+ 2
+ Nonlinear solution status: time= 3.1
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            9.856314e+02    8.521836e-12    0.000000e+00 
+	   energy              3.066823e+00    7.835331e-12    3.066823e-02 
+	   displacement        2.178417e-02    6.475969e-11    2.178316e-08 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 3.1
+
+]0;(62%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 32 : 3.2 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 3.2
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            8.010168e+02    4.401179e-06    0.000000e+00 
+	   energy              2.584116e+00    6.149697e-05    2.584116e-02 
+	   displacement        1.896821e-02    1.896821e-02    1.896821e-08 
+ 2
+ Nonlinear solution status: time= 3.2
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            8.010168e+02    1.003490e-11    0.000000e+00 
+	   energy              2.584116e+00    8.146974e-12    2.584116e-02 
+	   displacement        1.896821e-02    7.610578e-11    1.896704e-08 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 3.2
+
+]0;(64%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 33 : 3.3 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 3.3
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            6.075549e+02    3.495553e-06    0.000000e+00 
+	   energy              2.012183e+00    5.446305e-05    2.012183e-02 
+	   displacement        1.503054e-02    1.503054e-02    1.503054e-08 
+ 2
+ Nonlinear solution status: time= 3.3
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            6.075549e+02    5.977924e-12    0.000000e+00 
+	   energy              2.012183e+00    5.476540e-12    2.012183e-02 
+	   displacement        1.503054e-02    6.044777e-11    1.502964e-08 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 3.3
+
+]0;(66%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 34 : 3.4 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 3.4
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            4.092204e+02    1.883518e-06    0.000000e+00 
+	   energy              1.394584e+00    2.953809e-05    1.394584e-02 
+	   displacement        1.056234e-02    1.056234e-02    1.056234e-08 
+ 2
+ Nonlinear solution status: time= 3.4
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            4.092204e+02    2.585743e-12    0.000000e+00 
+	   energy              1.394584e+00    2.761441e-12    1.394584e-02 
+	   displacement        1.056234e-02    3.290577e-11    1.056187e-08 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 3.4
+
+]0;(68%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 35 : 3.5 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 3.5
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            2.282846e+02    9.896644e-07    0.000000e+00 
+	   energy              8.196165e-01    8.219367e-06    8.196165e-03 
+	   displacement        6.396865e-03    6.396865e-03    6.396865e-09 
+ 2
+ Nonlinear solution status: time= 3.5
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            2.282846e+02    1.896280e-12    0.000000e+00 
+	   energy              8.196165e-01    2.012616e-12    8.196165e-03 
+	   displacement        6.396865e-03    1.981339e-11    6.396622e-09 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 3.5
+
+]0;(70%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 36 : 3.6 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 3.6
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            9.520388e+01    1.078920e-06    0.000000e+00 
+	   energy              3.701478e-01    4.362942e-06    3.701478e-03 
+	   displacement        3.044574e-03    3.044574e-03    3.044574e-09 
+ 2
+ Nonlinear solution status: time= 3.6
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            9.520388e+01    2.013317e-12    0.000000e+00 
+	   energy              3.701478e-01    2.796279e-12    3.701478e-03 
+	   displacement        3.044574e-03    1.690390e-11    3.044363e-09 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 3.6
+
+]0;(72%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 37 : 3.7 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 3.7
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            2.555080e+01    8.620034e-07    0.000000e+00 
+	   energy              1.036675e-01    6.582853e-06    1.036675e-03 
+	   displacement        8.689174e-04    8.689174e-04    8.689174e-10 
+ 2
+ Nonlinear solution status: time= 3.7
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            2.555080e+01    8.026611e-13    0.000000e+00 
+	   energy              1.036675e-01    1.523869e-12    1.036675e-03 
+	   displacement        8.689174e-04    1.295476e-11    8.687837e-10 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 3.7
+
+]0;(74%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 38 : 3.8 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 3.8
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            2.026720e+01    3.881514e-07    0.000000e+00 
+	   energy              5.638787e-02    3.718529e-06    5.638787e-04 
+	   displacement        3.078725e-04    3.078725e-04    3.078725e-10 
+ 2
+ Nonlinear solution status: time= 3.8
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            2.026720e+01    7.080648e-13    0.000000e+00 
+	   energy              5.638787e-02    1.264590e-12    5.638787e-04 
+	   displacement        3.078725e-04    7.731377e-12    3.078278e-10 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 3.8
+
+]0;(76%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 39 : 3.9 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 3.9
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            7.270849e+01    5.244729e-07    0.000000e+00 
+	   energy              2.320177e-01    2.929053e-07    2.320177e-03 
+	   displacement        1.558566e-03    1.558566e-03    1.558566e-09 
+ 2
+ Nonlinear solution status: time= 3.9
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            7.270849e+01    6.566282e-13    0.000000e+00 
+	   energy              2.320177e-01    9.118953e-13    2.320177e-03 
+	   displacement        1.558566e-03    6.539147e-12    1.558545e-09 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 3.9
+
+]0;(78%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 40 : 4 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 4
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.674174e+02    1.334264e-06    0.000000e+00 
+	   energy              5.854089e-01    1.645978e-06    5.854089e-03 
+	   displacement        4.395374e-03    4.395374e-03    4.395374e-09 
+ 2
+ Nonlinear solution status: time= 4
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.674174e+02    9.495124e-13    0.000000e+00 
+	   energy              5.854089e-01    2.098194e-12    5.854089e-03 
+	   displacement        4.395374e-03    1.762142e-11    4.395321e-09 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 4
+
+]0;(80%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 41 : 4.1 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 4.1
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            2.876570e+02    1.283771e-06    0.000000e+00 
+	   energy              1.046880e+00    1.449879e-06    1.046880e-02 
+	   displacement        8.280136e-03    8.280136e-03    8.280136e-09 
+ 2
+ Nonlinear solution status: time= 4.1
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            2.876570e+02    5.542078e-13    0.000000e+00 
+	   energy              1.046880e+00    1.599646e-12    1.046880e-02 
+	   displacement        8.280136e-03    1.809248e-11    8.280107e-09 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 4.1
+
+]0;(82%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 42 : 4.2 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 4.2
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            4.230699e+02    1.886908e-06    0.000000e+00 
+	   energy              1.551542e+00    6.154151e-07    1.551542e-02 
+	   displacement        1.248271e-02    1.248271e-02    1.248271e-08 
+ 2
+ Nonlinear solution status: time= 4.2
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            4.230699e+02    1.107362e-12    0.000000e+00 
+	   energy              1.551542e+00    3.629732e-12    1.551542e-02 
+	   displacement        1.248271e-02    4.037702e-11    1.248275e-08 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 4.2
+
+]0;(84%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 43 : 4.3 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 4.3
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            5.597924e+02    2.252365e-06    0.000000e+00 
+	   energy              2.032647e+00    2.271039e-07    2.032647e-02 
+	   displacement        1.633836e-02    1.633836e-02    1.633836e-08 
+ 2
+ Nonlinear solution status: time= 4.3
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            5.597924e+02    1.105844e-12    0.000000e+00 
+	   energy              2.032647e+00    4.388423e-12    2.032647e-02 
+	   displacement        1.633836e-02    5.552211e-11    1.633845e-08 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 4.3
+
+]0;(86%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 44 : 4.4 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 4.4
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            6.915171e+02    2.201228e-06    0.000000e+00 
+	   energy              2.446562e+00    1.234511e-06    2.446562e-02 
+	   displacement        1.936938e-02    1.936938e-02    1.936938e-08 
+ 2
+ Nonlinear solution status: time= 4.4
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            6.915171e+02    9.802407e-13    0.000000e+00 
+	   energy              2.446562e+00    3.599243e-12    2.446562e-02 
+	   displacement        1.936938e-02    5.138736e-11    1.936955e-08 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 4.4
+
+]0;(88%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 45 : 4.5 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 4.5
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            8.356097e+02    1.708991e-06    0.000000e+00 
+	   energy              2.806832e+00    2.103866e-06    2.806832e-02 
+	   displacement        2.133099e-02    2.133099e-02    2.133099e-08 
+ 2
+ Nonlinear solution status: time= 4.5
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            8.356097e+02    8.017766e-13    0.000000e+00 
+	   energy              2.806832e+00    2.757461e-12    2.806832e-02 
+	   displacement        2.133099e-02    4.032422e-11    2.133118e-08 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 4.5
+
+]0;(90%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 46 : 4.6 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 4.6
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.019800e+03    9.331249e-07    0.000000e+00 
+	   energy              3.165678e+00    2.116984e-06    3.165678e-02 
+	   displacement        2.230964e-02    2.230964e-02    2.230964e-08 
+ 2
+ Nonlinear solution status: time= 4.6
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.019800e+03    5.466184e-13    0.000000e+00 
+	   energy              3.165678e+00    1.644355e-12    3.165678e-02 
+	   displacement        2.230964e-02    2.080408e-11    2.230968e-08 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 4.6
+
+]0;(92%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 47 : 4.7 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 4.7
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.262372e+03    7.116883e-07    0.000000e+00 
+	   energy              3.578801e+00    1.387484e-06    3.578801e-02 
+	   displacement        2.273510e-02    2.273510e-02    2.273510e-08 
+ 2
+ Nonlinear solution status: time= 4.7
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.262372e+03    3.908944e-13    0.000000e+00 
+	   energy              3.578801e+00    8.984074e-13    3.578801e-02 
+	   displacement        2.273510e-02    1.169635e-11    2.273503e-08 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 4.7
+
+]0;(94%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 48 : 4.8 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 4.8
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.559064e+03    7.535433e-07    0.000000e+00 
+	   energy              4.083699e+00    1.420937e-06    4.083699e-02 
+	   displacement        2.338184e-02    2.338184e-02    2.338184e-08 
+ 2
+ Nonlinear solution status: time= 4.8
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.559064e+03    4.665700e-13    0.000000e+00 
+	   energy              4.083699e+00    9.253035e-13    4.083699e-02 
+	   displacement        2.338184e-02    1.479520e-11    2.338183e-08 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 4.8
+
+]0;(96%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 49 : 4.9 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 4.9
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.884300e+03    1.090123e-06    0.000000e+00 
+	   energy              4.682193e+00    3.219046e-06    4.682193e-02 
+	   displacement        2.483840e-02    2.483840e-02    2.483840e-08 
+ 2
+ Nonlinear solution status: time= 4.9
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            1.884300e+03    9.251273e-13    0.000000e+00 
+	   energy              4.682193e+00    1.451286e-12    4.682193e-02 
+	   displacement        2.483840e-02    2.661046e-11    2.483849e-08 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 4.9
+
+]0;(98%) sim_006.feb - FEBio 4.12.0 
+===== beginning time step 50 : 5 =====
+
+
+Reforming stiffness matrix: reformation #1
+
+ 1
+ Nonlinear solution status: time= 5
+	stiffness updates             = 0
+	right hand side evaluations   = 2
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            2.202829e+03    2.298510e-06    0.000000e+00 
+	   energy              5.330506e+00    2.066692e-06    5.330506e-02 
+	   displacement        2.705391e-02    2.705391e-02    2.705391e-08 
+ 2
+ Nonlinear solution status: time= 5
+	stiffness updates             = 1
+	right hand side evaluations   = 3
+	stiffness matrix reformations = 1
+	step from line search         = 1.000000
+	convergence norms :     INITIAL         CURRENT         REQUIRED
+	   residual            2.202829e+03    2.365703e-12    0.000000e+00 
+	   energy              5.330506e+00    3.178143e-12    5.330506e-02 
+	   displacement        2.705391e-02    5.129676e-11    2.705410e-08 
+
+convergence summary
+    number of iterations   : 2
+    number of reformations : 1
+
+------- converged at time : 5
+
+]0;(100%) sim_006.feb - FEBio 4.12.0 
+
+ N O N L I N E A R   I T E R A T I O N   I N F O R M A T I O N
+
+	Number of time steps completed .................... : 50
+
+	Total number of equilibrium iterations ............ : 116
+
+	Average number of equilibrium iterations .......... : 2.32
+
+	Total number of right hand evaluations ............ : 166
+
+	Total number of stiffness reformations ............ : 50
+
+
+ L I N E A R   S O L V E R   S T A T S
+
+	Total calls to linear solver ........ : 116
+
+	Avg iterations per solve ............ : 1
+
+	Time in linear solver: 0:00:00
+
+
+ Elapsed time : 0:00:01
+
+
+ N O R M A L   T E R M I N A T I O N
+
+]0;(0%) sim_006.feb - FEBio 4.12.0 
