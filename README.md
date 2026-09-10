@@ -112,14 +112,57 @@ FEBio allows load curves to define behavior beyond specified time endpoints. The
 
 ---
 
-## 7. Usage
+## 7. Workflow & Usage
 
-1. **Environment Setup:** Ensure Python 3.8+ is installed with the required dependencies:
+The pipeline operates in two distinct phases: **Simulation Execution (FEBio)** followed by **Data Extraction (Python/Notebook)**.
+
+### Phase 1: Finite Element Simulation (FEBio)
+Before extracting tabular datasets, the biomechanics simulation must be solved by FEBio to generate the sequential timestep mesh files:
+1. **Model Configuration:** Ensure the `.feb` input file is configured to output VTK meshes under `<Output>`:
+   ```xml
+   <Output>
+       <plotfile type="vtk">
+           <var type="displacement"/>
+           <var type="reaction forces"/>
+           <var type="stress"/>
+           <var type="Lagrange strain"/>
+           <var type="relative volume"/>
+           <var type="fiber vector"/>
+           <var type="fiber stretch"/>
+       </plotfile>
+   </Output>
+   ```
+2. **Run Solver:** Execute the simulation via FEBioStudio or the command line:
+   ```bash
+   febio4 -i ellipsoid-muscle-contraction.feb
+   ```
+   This generates the individual timestep meshes (`.0.vtk`, `.1.vtk`, ..., `.50.vtk`). Move or point the output files to `vtk_files/`.
+   
+   > **Note:** A pre-computed baseline simulation run (51 timesteps) is already provided in `vtk_files/` so the extraction pipeline can be tested immediately after cloning without needing to re-run FEBio.
+
+### Phase 2: Data Extraction & ML Preprocessing
+Once the simulation timesteps are available:
+1. **Install Dependencies:**
    ```bash
    pip install numpy pandas scipy pyvista jupyter
    ```
-2. **Directory Verification:** Ensure `ellipsoid-muscle-contraction.feb` and the sequential `.vtk` mesh files (`vtk_files/*.vtk`) are placed in their respective directory paths.
-3. **Execute Extraction:**
-   * Open `data_pipeline_extraction.ipynb` in Jupyter Notebook.
-   * Run the notebook cells sequentially from top to bottom.
-   * The script will parse the `.feb` XML file, compute the activation time-history, read the VTK meshes, and export `nodal_timeseries.csv`, `element_timeseries.csv`, and `simulation_metadata.json`.
+2. **Run the Extraction Notebook:**
+   * Open `data_pipeline_extraction.ipynb` in Jupyter Notebook (or VS Code).
+   * Run the cells sequentially from top to bottom.
+   * The notebook parses the excitation signal from `<LoadData>`, reads each timestep mesh using PyVista, flattens spatial vectors and stress/strain tensors, and exports `nodal_timeseries.csv`, `element_timeseries.csv`, and `simulation_metadata.json`.
+3. **Alternative (Command-Line):**
+   You can also run the extraction directly via terminal:
+   ```bash
+   python scripts/data_extraction.py
+   ```
+
+---
+
+## 8. Automated Parametric Batching
+
+If you want to automate **both Phase 1 and Phase 2** together across multiple parameter combinations (e.g., varying $c_1$, $T_{\max}$, and $ca_0$), see the self-contained module in [`sample_ellipsoid_parametric_dataset/`](sample_ellipsoid_parametric_dataset/). It handles parameter sampling, automated XML injection, headless FEBio execution, and dataset extraction in a single automated loop:
+
+```bash
+cd sample_ellipsoid_parametric_dataset
+python scripts/generate_dataset.py
+```
