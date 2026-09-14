@@ -1,0 +1,203 @@
+{
+    "dataset_info": {
+        "created_at": "2026-09-13T23:49:36.316437",
+        "base_template": "ta-muscle-contraction.feb",
+        "random_seed": 42,
+        "varied_parameters": {
+            "c1": {
+                "range": [
+                    10.0,
+                    16.0
+                ],
+                "precision": 1,
+                "description": "Matrix shear modulus (kPa)"
+            },
+            "Tmax": {
+                "range": [
+                    0.8,
+                    1.2
+                ],
+                "precision": 1,
+                "description": "Peak isometric active tension (kPa)"
+            },
+            "ca0": {
+                "range": [
+                    3.8,
+                    4.8
+                ],
+                "precision": 1,
+                "description": "Half-activation calcium concentration (umol/l)"
+            }
+        },
+        "constant_parameters": {
+            "Material": {
+                "name": "Muscle_Trans iso MR",
+                "type": "trans iso Mooney-Rivlin",
+                "density": "1",
+                "k": "100",
+                "c2": "0",
+                "c3": "2.07",
+                "c4": "61.44",
+                "c5": "640.7",
+                "lam_max": "1.03",
+                "fiber_vector": "0,0,1"
+            },
+            "Active_Contraction": {
+                "ascl": "1",
+                "camax": "0",
+                "beta": "4.75",
+                "l0": "1.58",
+                "refl": "2.04"
+            },
+            "Control_Settings": {
+                "analysis": "DYNAMIC",
+                "time_steps": "50",
+                "step_size": "0.1"
+            },
+            "Geometry": {
+                "type": "Anatomical Human Tibialis Anterior (TA)",
+                "nodes": 44684,
+                "elements": 196999,
+                "element_type": "tet4"
+            }
+        },
+        "load_curve_variation_enabled": true,
+        "load_curve_config": {
+            "allowed_profiles": [
+                "ramp_and_hold",
+                "twitch",
+                "cyclic"
+            ],
+            "allowed_interpolations": [
+                "LINEAR",
+                "SMOOTH"
+            ],
+            "amplitude_range": [
+                0.4,
+                1.0
+            ],
+            "rise_time_range": [
+                0.5,
+                1.8
+            ],
+            "hold_duration_range": [
+                0.5,
+                1.2
+            ],
+            "relax_duration_range": [
+                0.6,
+                1.5
+            ],
+            "cycle_period_range": [
+                1.0,
+                1.5
+            ]
+        },
+        "total_simulations": 2,
+        "successful_simulations": 2,
+        "last_updated": "2026-09-13T23:58:19.902957"
+    },
+    "simulations": {
+        "sim_001": {
+            "status": "COMPLETED",
+            "parameters": {
+                "c1": 10.2,
+                "Tmax": 1.1,
+                "ca0": 3.9
+            },
+            "folder": "dataset/sim_001",
+            "files": {
+                "feb_file": "sim_001.feb",
+                "log_file": "sim_001.log",
+                "solver_log": "febio_execution.log",
+                "nodal_csv": "nodal_timeseries.csv",
+                "element_csv": "element_timeseries.csv",
+                "metadata_json": "simulation_metadata.json",
+                "vtk_count": 51
+            },
+            "solve_time_sec": 109.05,
+            "load_curve": {
+                "profile": "cyclic",
+                "interpolate": "SMOOTH",
+                "extend": "REPEAT",
+                "parameters": {
+                    "A_max": 0.59,
+                    "t_cycle": 1.12,
+                    "t_peak": 0.45
+                },
+                "points": [
+                    [
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        0.23,
+                        0.29
+                    ],
+                    [
+                        0.45,
+                        0.59
+                    ],
+                    [
+                        0.79,
+                        0.29
+                    ],
+                    [
+                        1.12,
+                        0.0
+                    ]
+                ]
+            }
+        },
+        "sim_002": {
+            "status": "COMPLETED",
+            "parameters": {
+                "c1": 12.5,
+                "Tmax": 1.0,
+                "ca0": 4.7
+            },
+            "folder": "dataset/sim_002",
+            "files": {
+                "feb_file": "sim_002.feb",
+                "log_file": "sim_002.log",
+                "solver_log": "febio_execution.log",
+                "nodal_csv": "nodal_timeseries.csv",
+                "element_csv": "element_timeseries.csv",
+                "metadata_json": "simulation_metadata.json",
+                "vtk_count": 51
+            },
+            "solve_time_sec": 102.73,
+            "load_curve": {
+                "profile": "ramp_and_hold",
+                "interpolate": "SMOOTH",
+                "extend": "CONSTANT",
+                "parameters": {
+                    "A_max": 0.67,
+                    "t_rise": 1.47
+                },
+                "points": [
+                    [
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        0.59,
+                        0.23
+                    ],
+                    [
+                        1.18,
+                        0.6
+                    ],
+                    [
+                        1.47,
+                        0.67
+                    ],
+                    [
+                        5.0,
+                        0.67
+                    ]
+                ]
+            }
+        }
+    }
+}

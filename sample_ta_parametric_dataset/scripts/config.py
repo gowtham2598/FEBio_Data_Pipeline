@@ -1,5 +1,5 @@
 """
-Configuration settings for parametric FEBio simulations.
+Configuration settings for parametric FEBio simulations on Anatomical Human Tibialis Anterior (TA).
 """
 
 import os
@@ -7,16 +7,16 @@ import os
 SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
 MODULE_ROOT = os.path.abspath(os.path.join(SCRIPTS_DIR, ".."))
 
-BASE_TEMPLATE_PATH = os.path.join(MODULE_ROOT, "ellipsoid-muscle-contraction.feb")
+BASE_TEMPLATE_PATH = os.path.join(MODULE_ROOT, "ta-muscle-contraction.feb")
 DATASET_DIR = os.path.join(MODULE_ROOT, "dataset")
 FEBIO_SOLVER_PATH = "/home/gv2598/FEBioStudio/bin/febio4"
 
 # Number of simulations to run in this batch
-NUM_SIMULATIONS = 8
+NUM_SIMULATIONS = 3
 RANDOM_SEED = 42
 
 # Execution mode:
-# False (default): Auto-resumes from the next available index (e.g., sim_008) and appends to manifests.
+# False (default): Auto-resumes from the next available index (e.g., sim_002) and appends to manifests.
 # True: Resets and starts from sim_001.
 OVERWRITE_EXISTING = False
 
@@ -67,7 +67,7 @@ LOAD_CURVE_CONFIG = {
 # Fixed baseline parameters logged for provenance
 CONSTANT_PARAMETERS = {
     "Material": {
-        "name": "Material1",
+        "name": "Muscle_Trans iso MR",
         "type": "trans iso Mooney-Rivlin",
         "density": "1",
         "k": "100",
@@ -89,5 +89,11 @@ CONSTANT_PARAMETERS = {
         "analysis": "DYNAMIC",
         "time_steps": "50",
         "step_size": "0.1"
+    },
+    "Geometry": {
+        "type": "Anatomical Human Tibialis Anterior (TA)",
+        "nodes": 44684,
+        "elements": 196999,
+        "element_type": "tet4"
     }
 }

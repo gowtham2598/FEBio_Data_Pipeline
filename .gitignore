@@ -8,12 +8,27 @@ __pycache__/
 *$py.class
 .ipynb_checkpoints/
 
-# FEBio binary plot files
+# FEBio binary plot files & solver logs
 *.xplt
 
-# Ignore generated simulation VTKs except for sim_001 (sample demonstration run)
+# Ignore generated simulation VTKs except for sim_001 in ellipsoid (baseline demonstration)
 sample_ellipsoid_parametric_dataset/dataset/sim_*/*.vtk
 !sample_ellipsoid_parametric_dataset/dataset/sim_001/*.vtk
+
+# Exclude generated heavy dataset directories (preserve templates, scripts, and manifests)
+# Biceps dataset contains ~210MB CSVs per run; TA dataset contains ~2.6GB CSVs per run.
+sample_biceps_parametric_dataset/dataset/
+sample_ta_parametric_dataset/dataset/
+
+# Exclude batch runs 8-15 in ellipsoid to keep repository lightweight (<100MB)
+sample_ellipsoid_parametric_dataset/dataset/sim_008/
+sample_ellipsoid_parametric_dataset/dataset/sim_009/
+sample_ellipsoid_parametric_dataset/dataset/sim_010/
+sample_ellipsoid_parametric_dataset/dataset/sim_011/
+sample_ellipsoid_parametric_dataset/dataset/sim_012/
+sample_ellipsoid_parametric_dataset/dataset/sim_013/
+sample_ellipsoid_parametric_dataset/dataset/sim_014/
+sample_ellipsoid_parametric_dataset/dataset/sim_015/
 
 # OS artifacts
 .DS_Store

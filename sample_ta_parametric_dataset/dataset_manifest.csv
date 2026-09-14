@@ -1,0 +1,3 @@
+sim_id,status,c1,Tmax,ca0,lc_profile,lc_interp,lc_extend,lc_Amax,execution_time_sec,vtk_count,nodal_rows,element_rows,timestamp,folder
+sim_001,COMPLETED,10.2,1.1,3.9,cyclic,SMOOTH,REPEAT,0.59,109.05,51,2274447,10044756,2026-09-13 23:49:36,dataset/sim_001
+sim_002,COMPLETED,12.5,1.0,4.7,ramp_and_hold,SMOOTH,CONSTANT,0.67,102.73,51,2274447,10044756,2026-09-13 23:58:19,dataset/sim_002

@@ -2,8 +2,8 @@
     "dataset_info": {
         "created_at": "2026-09-06T22:31:24.577870",
         "base_template": "ellipsoid-muscle-contraction.feb",
-        "total_simulations": 7,
-        "successful_simulations": 7,
+        "total_simulations": 15,
+        "successful_simulations": 15,
         "random_seed": 42,
         "varied_parameters": {
             "c1": {
@@ -57,7 +57,39 @@
                 "step_size": "0.1"
             }
         },
-        "last_updated": "2026-09-07T23:24:15.342790"
+        "last_updated": "2026-09-13T19:25:06.897394",
+        "load_curve_variation_enabled": true,
+        "load_curve_config": {
+            "allowed_profiles": [
+                "ramp_and_hold",
+                "twitch",
+                "cyclic"
+            ],
+            "allowed_interpolations": [
+                "LINEAR",
+                "SMOOTH"
+            ],
+            "amplitude_range": [
+                0.4,
+                1.0
+            ],
+            "rise_time_range": [
+                0.5,
+                1.8
+            ],
+            "hold_duration_range": [
+                0.5,
+                1.2
+            ],
+            "relax_duration_range": [
+                0.6,
+                1.5
+            ],
+            "cycle_period_range": [
+                1.0,
+                1.5
+            ]
+        }
     },
     "simulations": {
         "sim_001": {
@@ -192,6 +224,379 @@
                 "vtk_count": 51
             },
             "solve_time_sec": 1.13
+        },
+        "sim_008": {
+            "status": "COMPLETED",
+            "parameters": {
+                "c1": 13.0,
+                "Tmax": 0.9,
+                "ca0": 4.4
+            },
+            "folder": "dataset/sim_008",
+            "files": {
+                "feb_file": "sim_008.feb",
+                "log_file": "sim_008.log",
+                "solver_log": "febio_execution.log",
+                "nodal_csv": "nodal_timeseries.csv",
+                "element_csv": "element_timeseries.csv",
+                "metadata_json": "simulation_metadata.json",
+                "vtk_count": 51
+            },
+            "solve_time_sec": 1.22,
+            "load_curve": {
+                "profile": "twitch",
+                "interpolate": "SMOOTH",
+                "extend": "CONSTANT",
+                "parameters": {
+                    "A_max": 0.67,
+                    "t_rise": 0.95,
+                    "t_hold": 1.08,
+                    "t_relax": 1.39
+                },
+                "points": [
+                    [
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        0.47,
+                        0.3
+                    ],
+                    [
+                        0.95,
+                        0.67
+                    ],
+                    [
+                        2.03,
+                        0.67
+                    ],
+                    [
+                        2.72,
+                        0.3
+                    ],
+                    [
+                        3.42,
+                        0.0
+                    ],
+                    [
+                        5.0,
+                        0.0
+                    ]
+                ]
+            }
+        },
+        "sim_009": {
+            "status": "COMPLETED",
+            "parameters": {
+                "c1": 11.5,
+                "Tmax": 1.0,
+                "ca0": 4.0
+            },
+            "folder": "dataset/sim_009",
+            "files": {
+                "feb_file": "sim_009.feb",
+                "log_file": "sim_009.log",
+                "solver_log": "febio_execution.log",
+                "nodal_csv": "nodal_timeseries.csv",
+                "element_csv": "element_timeseries.csv",
+                "metadata_json": "simulation_metadata.json",
+                "vtk_count": 51
+            },
+            "solve_time_sec": 1.18,
+            "load_curve": {
+                "profile": "ramp_and_hold",
+                "interpolate": "LINEAR",
+                "extend": "CONSTANT",
+                "parameters": {
+                    "A_max": 0.56,
+                    "t_rise": 1.48
+                },
+                "points": [
+                    [
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        1.48,
+                        0.56
+                    ],
+                    [
+                        5.0,
+                        0.56
+                    ]
+                ]
+            }
+        },
+        "sim_010": {
+            "status": "COMPLETED",
+            "parameters": {
+                "c1": 15.9,
+                "Tmax": 0.8,
+                "ca0": 4.5
+            },
+            "folder": "dataset/sim_010",
+            "files": {
+                "feb_file": "sim_010.feb",
+                "log_file": "sim_010.log",
+                "solver_log": "febio_execution.log",
+                "nodal_csv": "nodal_timeseries.csv",
+                "element_csv": "element_timeseries.csv",
+                "metadata_json": "simulation_metadata.json",
+                "vtk_count": 51
+            },
+            "solve_time_sec": 1.25,
+            "load_curve": {
+                "profile": "ramp_and_hold",
+                "interpolate": "LINEAR",
+                "extend": "CONSTANT",
+                "parameters": {
+                    "A_max": 0.59,
+                    "t_rise": 1.13
+                },
+                "points": [
+                    [
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        1.13,
+                        0.59
+                    ],
+                    [
+                        5.0,
+                        0.59
+                    ]
+                ]
+            }
+        },
+        "sim_011": {
+            "status": "COMPLETED",
+            "parameters": {
+                "c1": 13.7,
+                "Tmax": 1.2,
+                "ca0": 4.3
+            },
+            "folder": "dataset/sim_011",
+            "files": {
+                "feb_file": "sim_011.feb",
+                "log_file": "sim_011.log",
+                "solver_log": "febio_execution.log",
+                "nodal_csv": "nodal_timeseries.csv",
+                "element_csv": "element_timeseries.csv",
+                "metadata_json": "simulation_metadata.json",
+                "vtk_count": 51
+            },
+            "solve_time_sec": 1.25,
+            "load_curve": {
+                "profile": "twitch",
+                "interpolate": "SMOOTH",
+                "extend": "CONSTANT",
+                "parameters": {
+                    "A_max": 0.97,
+                    "t_rise": 1.39,
+                    "t_hold": 0.96,
+                    "t_relax": 0.81
+                },
+                "points": [
+                    [
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        0.69,
+                        0.44
+                    ],
+                    [
+                        1.39,
+                        0.97
+                    ],
+                    [
+                        2.35,
+                        0.97
+                    ],
+                    [
+                        2.75,
+                        0.44
+                    ],
+                    [
+                        3.16,
+                        0.0
+                    ],
+                    [
+                        5.0,
+                        0.0
+                    ]
+                ]
+            }
+        },
+        "sim_012": {
+            "status": "COMPLETED",
+            "parameters": {
+                "c1": 15.5,
+                "Tmax": 0.9,
+                "ca0": 4.4
+            },
+            "folder": "dataset/sim_012",
+            "files": {
+                "feb_file": "sim_012.feb",
+                "log_file": "sim_012.log",
+                "solver_log": "febio_execution.log",
+                "nodal_csv": "nodal_timeseries.csv",
+                "element_csv": "element_timeseries.csv",
+                "metadata_json": "simulation_metadata.json",
+                "vtk_count": 51
+            },
+            "solve_time_sec": 1.16,
+            "load_curve": {
+                "profile": "ramp_and_hold",
+                "interpolate": "LINEAR",
+                "extend": "CONSTANT",
+                "parameters": {
+                    "A_max": 0.87,
+                    "t_rise": 1.22
+                },
+                "points": [
+                    [
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        1.22,
+                        0.87
+                    ],
+                    [
+                        5.0,
+                        0.87
+                    ]
+                ]
+            }
+        },
+        "sim_013": {
+            "status": "COMPLETED",
+            "parameters": {
+                "c1": 10.5,
+                "Tmax": 1.2,
+                "ca0": 3.9
+            },
+            "folder": "dataset/sim_013",
+            "files": {
+                "feb_file": "sim_013.feb",
+                "log_file": "sim_013.log",
+                "solver_log": "febio_execution.log",
+                "nodal_csv": "nodal_timeseries.csv",
+                "element_csv": "element_timeseries.csv",
+                "metadata_json": "simulation_metadata.json",
+                "vtk_count": 51
+            },
+            "solve_time_sec": 1.22,
+            "load_curve": {
+                "profile": "ramp_and_hold",
+                "interpolate": "LINEAR",
+                "extend": "CONSTANT",
+                "parameters": {
+                    "A_max": 0.61,
+                    "t_rise": 1.24
+                },
+                "points": [
+                    [
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        1.24,
+                        0.61
+                    ],
+                    [
+                        5.0,
+                        0.61
+                    ]
+                ]
+            }
+        },
+        "sim_014": {
+            "status": "COMPLETED",
+            "parameters": {
+                "c1": 15.8,
+                "Tmax": 1.0,
+                "ca0": 4.3
+            },
+            "folder": "dataset/sim_014",
+            "files": {
+                "feb_file": "sim_014.feb",
+                "log_file": "sim_014.log",
+                "solver_log": "febio_execution.log",
+                "nodal_csv": "nodal_timeseries.csv",
+                "element_csv": "element_timeseries.csv",
+                "metadata_json": "simulation_metadata.json",
+                "vtk_count": 51
+            },
+            "solve_time_sec": 1.12,
+            "load_curve": {
+                "profile": "ramp_and_hold",
+                "interpolate": "LINEAR",
+                "extend": "CONSTANT",
+                "parameters": {
+                    "A_max": 0.92,
+                    "t_rise": 1.53
+                },
+                "points": [
+                    [
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        1.53,
+                        0.92
+                    ],
+                    [
+                        5.0,
+                        0.92
+                    ]
+                ]
+            }
+        },
+        "sim_015": {
+            "status": "COMPLETED",
+            "parameters": {
+                "c1": 10.3,
+                "Tmax": 1.0,
+                "ca0": 3.8
+            },
+            "folder": "dataset/sim_015",
+            "files": {
+                "feb_file": "sim_015.feb",
+                "log_file": "sim_015.log",
+                "solver_log": "febio_execution.log",
+                "nodal_csv": "nodal_timeseries.csv",
+                "element_csv": "element_timeseries.csv",
+                "metadata_json": "simulation_metadata.json",
+                "vtk_count": 51
+            },
+            "solve_time_sec": 1.11,
+            "load_curve": {
+                "profile": "cyclic",
+                "interpolate": "LINEAR",
+                "extend": "REPEAT",
+                "parameters": {
+                    "A_max": 0.65,
+                    "t_cycle": 1.4,
+                    "t_peak": 0.56
+                },
+                "points": [
+                    [
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        0.56,
+                        0.65
+                    ],
+                    [
+                        1.4,
+                        0.0
+                    ]
+                ]
+            }
         }
     }
 }

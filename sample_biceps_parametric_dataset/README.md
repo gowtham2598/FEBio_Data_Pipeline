@@ -1,16 +1,18 @@
-# Parametric FEBio Dataset Generator (Idealized Ellipsoid)
+# Parametric FEBio Dataset Generator (Human Biceps Brachii)
 
-Batch execution and feature extraction pipeline for active muscle contraction simulations on an idealized fusiform ellipsoid geometry in FEBio. The pipeline samples material properties and dynamic load curves, injects them into model definitions (`.feb`), executes simulations headlessly via the FEBio command-line solver, and extracts nodal and element time-series datasets.
+Batch execution and feature extraction pipeline for active muscle contraction simulations on an **anatomical human Biceps Brachii** finite element geometry in FEBio. The pipeline samples material properties and dynamic load curves, injects them into model definitions (`.feb`), executes simulations headlessly via the FEBio command-line solver, and extracts nodal and element time-series datasets.
 
 ---
 
 ## Geometry & Mesh Specifications
 
-* **Target Geometry:** Idealized fusiform muscle belly (ellipsoid)
-* **Mesh Elements:** 2,516 linear tetrahedral elements (`tet4`)
-* **Mesh Nodes:** 634 unique spatial nodes
-* **Boundary Conditions:** Fixed zero-displacement boundary at the proximal pole surface (`ZeroDisplacement1`)
-* **Fiber Alignment:** Longitudinal fiber orientation along the $z$-axis ($[0, 0, 1]$)
+This module operates on an anatomical 3D finite element mesh derived from segmented human anatomy:
+
+* **Target Geometry:** Human Biceps Brachii muscle belly
+* **Mesh Elements:** 15,857 linear tetrahedral elements (`tet4`)
+* **Mesh Nodes:** 4,749 unique spatial nodes
+* **Boundary Conditions:** Fixed zero-displacement boundary constraint at the tendon insertion surface (`ZeroDisplacement1`)
+* **Fiber Alignment:** Anisotropic longitudinal fiber alignment along the $z$-axis ($[0, 0, 1]$)
 * **Material Model:** Transversely isotropic Mooney-Rivlin matrix coupled with active contraction (`<ascl lc="1">`)
 
 ---
@@ -18,8 +20,8 @@ Batch execution and feature extraction pipeline for active muscle contraction si
 ## Directory Structure
 
 ```text
-sample_ellipsoid_parametric_dataset/
-├── ellipsoid-muscle-contraction.feb   # Base simulation template (<plotfile type="vtk">)
+sample_biceps_parametric_dataset/
+├── biceps-muscle-contraction.feb      # Base Biceps simulation template (<plotfile type="vtk">)
 ├── dataset_manifest.csv               # Summary table of all runs, parameters, and load curves
 ├── dataset_manifest.json              # Full dataset provenance and per-run metadata
 ├── README.md                          # Usage and configuration guide
@@ -54,11 +56,7 @@ Three material parameters are varied with 1-decimal-place precision:
 | `Tmax` | `<Tmax>` | `1.0` | `[0.8, 1.2]` | `0.1` | Peak isometric active tension (kPa) |
 | `ca0` | `<ca0>` | `4.35` | `[3.8, 4.8]` | `0.1` | Calcium sensitivity threshold ($[Ca^{2+}]_{50}$) |
 
-Fixed baseline settings (Mooney-Rivlin coefficients $c_2 \dots c_5$, bulk modulus $k$, fiber orientation, Hill active parameters $\beta, l_0, \text{refl}$, and solver time-stepping) are preserved and logged in `dataset_manifest.json`.
-
 ### 2. Dynamic Load Curve Profiles
-The generator supports three load curve archetypes and FEBio interpolation settings:
-
 * **Profiles (`allowed_profiles`):**
   * `ramp_and_hold`: Monotonic ramp to peak activation $A_{\max}$, held constant through $t = 5.0\text{ s}$.
   * `twitch`: Contraction and relaxation cycle ($0 \to A_{\max} \to 0$) capturing loading and unloading hysteresis.
@@ -79,25 +77,13 @@ The generator supports three load curve archetypes and FEBio interpolation setti
 
 ## Running the Pipeline
 
-### 1. Configuration
-Adjust settings in `scripts/config.py`:
-```python
-NUM_SIMULATIONS = 8         # Number of simulations to generate in this batch
-RANDOM_SEED = 42            # Seed for deterministic reproducibility
-OVERWRITE_EXISTING = False  # False = resume from next index; True = start at sim_001
-
-ENABLE_VARYING_LOAD_CURVES = True
-```
-
-### 2. Execution
-Run the orchestrator from the module directory:
 ```bash
-cd sample_ellipsoid_parametric_dataset
+cd sample_biceps_parametric_dataset
 python scripts/generate_dataset.py
 ```
 
-* **Automatic Resume (Default):** Identifies the highest existing simulation index and continues from the next integer (e.g. starting at `sim_008` if `sim_001`–`sim_007` exist). New runs are appended to `dataset_manifest.csv` and merged into `dataset_manifest.json`.
-* **Specify Batch Size:** `python scripts/generate_dataset.py --num-sims 10`
+* **Automatic Resume (Default):** Identifies the highest existing simulation index and continues from the next integer. New runs are appended to `dataset_manifest.csv` and merged into `dataset_manifest.json`.
+* **Specify Batch Size:** `python scripts/generate_dataset.py --num-sims 5`
 * **Restart:** `python scripts/generate_dataset.py --overwrite`
 
 ---

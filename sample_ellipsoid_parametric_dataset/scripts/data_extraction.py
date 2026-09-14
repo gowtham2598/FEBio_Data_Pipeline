@@ -43,9 +43,11 @@ def extract_activation_curve(feb_file_path, total_steps):
                 return np.zeros(total_steps)
                 
             interp_elem = controller.find('interpolate')
-            if interp_elem is not None and interp_elem.text.strip().upper() not in ["LINEAR", "STEP"]:
-                print(f"\nWARNING: Interpolation type '{interp_elem.text}' is not explicitly supported (expected LINEAR or STEP).")
-                print("Extracted activation values may diverge from FEBio internal interpolation.")
+            if interp_elem is not None and interp_elem.text:
+                interp_type = interp_elem.text.strip().upper()
+                if interp_type not in ["LINEAR", "STEP", "SMOOTH"]:
+                    print(f"\nWARNING: Interpolation type '{interp_elem.text}' is not explicitly supported (expected LINEAR, STEP, or SMOOTH).")
+                    print("Extracted activation values may diverge from FEBio internal interpolation.")
             
             # Parse load curve boundary extension rule
             extend_elem = controller.find('extend')
@@ -71,31 +73,40 @@ def extract_activation_curve(feb_file_path, total_steps):
     v_min, v_max = values[0], values[-1]
     cycle_duration = t_max - t_min if t_max > t_min else 1.0
     
-    # Base 1D linear interpolator / extrapolator
-    base_func = interp1d(times, values, kind='linear', bounds_error=False, fill_value="extrapolate")
+    # Determine 1D interpolation scheme matching FEBio
+    if interp_type == "SMOOTH" and len(times) >= 4:
+        spline_kind = 'cubic'
+    elif interp_type == "SMOOTH" and len(times) == 3:
+        spline_kind = 'quadratic'
+    elif interp_type == "STEP":
+        spline_kind = 'previous'
+    else:
+        spline_kind = 'linear'
+        
+    base_func = interp1d(times, values, kind=spline_kind, bounds_error=False, fill_value="extrapolate")
     
-    # Apply boundary extension rules
+    # Apply boundary extension rules and ensure non-negative activation
     if extend_type == "CONSTANT":
-        activation_func = interp1d(times, values, kind='linear', bounds_error=False, fill_value=(v_min, v_max))
-        return activation_func(actual_times)
+        activation_func = interp1d(times, values, kind=spline_kind, bounds_error=False, fill_value=(v_min, v_max))
+        return np.clip(activation_func(actual_times), 0.0, None)
         
     elif extend_type == "EXTRAPOLATE":
-        return base_func(actual_times)
+        return np.clip(base_func(actual_times), 0.0, None)
         
     elif extend_type == "REPEAT":
         t_eval = np.where(actual_times > t_max, t_min + (actual_times - t_min) % cycle_duration, actual_times)
         t_eval = np.where(actual_times < t_min, t_min, t_eval)
-        return base_func(t_eval)
+        return np.clip(base_func(t_eval), 0.0, None)
         
     elif extend_type in ["REPEAT OFFSET", "REPEAT_OFFSET"]:
         cycles = np.where(actual_times > t_max, np.floor((actual_times - t_min) / cycle_duration), 0)
         t_eval = np.where(actual_times > t_max, t_min + (actual_times - t_min) % cycle_duration, actual_times)
         t_eval = np.where(actual_times < t_min, t_min, t_eval)
-        return base_func(t_eval) + cycles * (v_max - v_min)
+        return np.clip(base_func(t_eval) + cycles * (v_max - v_min), 0.0, None)
         
     else:
-        activation_func = interp1d(times, values, kind='linear', bounds_error=False, fill_value=(v_min, v_max))
-        return activation_func(actual_times)
+        activation_func = interp1d(times, values, kind=spline_kind, bounds_error=False, fill_value=(v_min, v_max))
+        return np.clip(activation_func(actual_times), 0.0, None)
 
 
 def build_timeseries_dataset(vtk_folder, output_folder, feb_file_path=None):
