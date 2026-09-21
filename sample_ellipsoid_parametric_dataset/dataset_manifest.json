@@ -2,8 +2,8 @@
     "dataset_info": {
         "created_at": "2026-09-06T22:31:24.577870",
         "base_template": "ellipsoid-muscle-contraction.feb",
-        "total_simulations": 15,
-        "successful_simulations": 15,
+        "total_simulations": 19,
+        "successful_simulations": 19,
         "random_seed": 42,
         "varied_parameters": {
             "c1": {
@@ -57,7 +57,7 @@
                 "step_size": "0.1"
             }
         },
-        "last_updated": "2026-09-13T19:25:06.897394",
+        "last_updated": "2026-09-19T21:15:04.562517",
         "load_curve_variation_enabled": true,
         "load_curve_config": {
             "allowed_profiles": [
@@ -89,6 +89,46 @@
                 1.0,
                 1.5
             ]
+        },
+        "sampling_mode": "grid",
+        "grid_parameters": {
+            "c1": [
+                10.0,
+                14.0
+            ],
+            "Tmax": [
+                0.8,
+                1.2
+            ],
+            "ca0": [
+                4.35
+            ]
+        },
+        "random_parameters": {
+            "c1": {
+                "range": [
+                    10.0,
+                    16.0
+                ],
+                "precision": 1,
+                "description": "Matrix shear modulus (kPa)"
+            },
+            "Tmax": {
+                "range": [
+                    0.8,
+                    1.2
+                ],
+                "precision": 1,
+                "description": "Peak isometric active tension (kPa)"
+            },
+            "ca0": {
+                "range": [
+                    3.8,
+                    4.8
+                ],
+                "precision": 1,
+                "description": "Half-activation calcium concentration (umol/l)"
+            }
         }
     },
     "simulations": {
@@ -597,6 +637,86 @@
                     ]
                 ]
             }
+        },
+        "sim_016": {
+            "status": "COMPLETED",
+            "sampling_mode": "grid",
+            "parameters": {
+                "c1": 10.0,
+                "Tmax": 0.8,
+                "ca0": 4.35
+            },
+            "folder": "dataset/sim_016",
+            "files": {
+                "feb_file": "sim_016.feb",
+                "log_file": "sim_016.log",
+                "solver_log": "febio_execution.log",
+                "nodal_csv": "nodal_timeseries.csv",
+                "element_csv": "element_timeseries.csv",
+                "metadata_json": "simulation_metadata.json",
+                "vtk_count": 51
+            },
+            "solve_time_sec": 1.25
+        },
+        "sim_017": {
+            "status": "COMPLETED",
+            "sampling_mode": "grid",
+            "parameters": {
+                "c1": 10.0,
+                "Tmax": 1.2,
+                "ca0": 4.35
+            },
+            "folder": "dataset/sim_017",
+            "files": {
+                "feb_file": "sim_017.feb",
+                "log_file": "sim_017.log",
+                "solver_log": "febio_execution.log",
+                "nodal_csv": "nodal_timeseries.csv",
+                "element_csv": "element_timeseries.csv",
+                "metadata_json": "simulation_metadata.json",
+                "vtk_count": 51
+            },
+            "solve_time_sec": 1.14
+        },
+        "sim_018": {
+            "status": "COMPLETED",
+            "sampling_mode": "grid",
+            "parameters": {
+                "c1": 14.0,
+                "Tmax": 0.8,
+                "ca0": 4.35
+            },
+            "folder": "dataset/sim_018",
+            "files": {
+                "feb_file": "sim_018.feb",
+                "log_file": "sim_018.log",
+                "solver_log": "febio_execution.log",
+                "nodal_csv": "nodal_timeseries.csv",
+                "element_csv": "element_timeseries.csv",
+                "metadata_json": "simulation_metadata.json",
+                "vtk_count": 51
+            },
+            "solve_time_sec": 1.19
+        },
+        "sim_019": {
+            "status": "COMPLETED",
+            "sampling_mode": "grid",
+            "parameters": {
+                "c1": 14.0,
+                "Tmax": 1.2,
+                "ca0": 4.35
+            },
+            "folder": "dataset/sim_019",
+            "files": {
+                "feb_file": "sim_019.feb",
+                "log_file": "sim_019.log",
+                "solver_log": "febio_execution.log",
+                "nodal_csv": "nodal_timeseries.csv",
+                "element_csv": "element_timeseries.csv",
+                "metadata_json": "simulation_metadata.json",
+                "vtk_count": 51
+            },
+            "solve_time_sec": 1.13
         }
     }
 }

@@ -1,6 +1,6 @@
 # Parametric FEBio Dataset Generator (Idealized Ellipsoid)
 
-Batch execution and feature extraction pipeline for active muscle contraction simulations on an idealized fusiform ellipsoid geometry in FEBio. The pipeline samples material properties and dynamic load curves, injects them into model definitions (`.feb`), executes simulations headlessly via the FEBio command-line solver, and extracts nodal and element time-series datasets.
+Batch execution and feature extraction pipeline for active muscle contraction simulations on an idealized fusiform ellipsoid geometry in FEBio. The pipeline supports deterministic grid parameter sweeps, Monte Carlo random sampling, and explicit simulation recipes. It injects parameters and load curves into model definitions (`.feb`), executes simulations headlessly via the FEBio command-line solver, and extracts nodal and element time-series datasets.
 
 ---
 
@@ -41,81 +41,131 @@ sample_ellipsoid_parametric_dataset/
 
 ---
 
-## Parameter Sampling & Dynamic Load Curves
+## Sampling Modes
 
-Configuration bounds are set in `scripts/config.py`:
+Configure `SAMPLING_MODE` in `scripts/config.py` or override via CLI (`--mode`):
 
-### 1. Constitutive Material Properties
-Three material parameters are varied with 1-decimal-place precision:
+![FEBio Dynamic Load Curve Archetypes](../docs/images/load_curve_archetypes.png)
 
-| Parameter | XML Element | Baseline | Sample Range | Precision | Physical Meaning |
-| :--- | :--- | :---: | :---: | :---: | :--- |
-| `c1` | `<c1>` | `13.85` | `[10.0, 16.0]` | `0.1` | Passive matrix shear modulus (kPa) |
-| `Tmax` | `<Tmax>` | `1.0` | `[0.8, 1.2]` | `0.1` | Peak isometric active tension (kPa) |
-| `ca0` | `<ca0>` | `4.35` | `[3.8, 4.8]` | `0.1` | Calcium sensitivity threshold ($[Ca^{2+}]_{50}$) |
+### 1. Deterministic Grid Sweep (`SAMPLING_MODE = "grid"`)
+Systematic Cartesian product across parameter axes. Parameters can be defined as discrete value lists or ranges with fixed step sizes:
+```python
+GRID_PARAMETERS = {
+    "c1": [10.0, 14.0],                  # Matrix shear modulus (kPa)
+    "Tmax": [0.8, 1.2],                  # Peak isometric active tension (kPa)
+    "ca0": [4.35]                        # Baseline calcium sensitivity (umol/l)
+}
 
-Fixed baseline settings (Mooney-Rivlin coefficients $c_2 \dots c_5$, bulk modulus $k$, fiber orientation, Hill active parameters $\beta, l_0, \text{refl}$, and solver time-stepping) are preserved and logged in `dataset_manifest.json`.
+# Load curve toggle for grid sweep:
+# False: Hold excitation fixed at baseline (1.0 ramp-and-hold) to isolate material effects
+# True:  Include discrete load curve settings in the Cartesian product
+GRID_INCLUDE_LOAD_CURVE = False
 
-### 2. Dynamic Load Curve Profiles
-The generator supports three load curve archetypes and FEBio interpolation settings:
+GRID_LOAD_CURVE = {
+    "profiles": ["ramp_and_hold", "twitch"],
+    "amplitudes": [0.6, 1.0],
+    "interpolations": ["LINEAR", "SMOOTH"]
+}
+```
 
-* **Profiles (`allowed_profiles`):**
-  * `ramp_and_hold`: Monotonic ramp to peak activation $A_{\max}$, held constant through $t = 5.0\text{ s}$.
-  * `twitch`: Contraction and relaxation cycle ($0 \to A_{\max} \to 0$) capturing loading and unloading hysteresis.
-  * `cyclic`: Repetitive contractions across the simulation window using FEBio's `<extend>REPEAT</extend>` rule.
+### 2. Monte Carlo Random Sampling (`SAMPLING_MODE = "random"`)
+Uniform random sampling within continuous intervals with customizable precision and seeds:
+```python
+NUM_SIMULATIONS = 5
+RANDOM_SEED = 42
 
-* **Curve Settings:**
-  * **Interpolation (`<interpolate>`):** Sampled between `LINEAR` (piecewise linear ramps) and `SMOOTH` (natural cubic spline interpolation).
-  * **Extension (`<extend>`):** Set to `CONSTANT` for ramp/twitch, or `REPEAT` for cyclic profiles.
+VARIED_PARAMETERS = {
+    "c1":   {"range": (10.0, 16.0), "precision": 1},
+    "Tmax": {"range": (0.8, 1.2),  "precision": 1},
+    "ca0":  {"range": (3.8, 4.8),  "precision": 1}
+}
 
-* **Sampling Bounds (`LOAD_CURVE_CONFIG`):**
-  * Peak Activation ($A_{\max}$): `[0.4, 1.0]`
-  * Rise Time ($t_{\text{rise}}$): `[0.5, 1.8]` seconds
-  * Hold Duration ($t_{\text{hold}}$): `[0.5, 1.2]` seconds (twitch)
-  * Relaxation Duration ($t_{\text{relax}}$): `[0.6, 1.5]` seconds (twitch)
-  * Cycle Period ($t_{\text{cycle}}$): `[1.0, 1.5]` seconds (cyclic)
+ENABLE_VARYING_LOAD_CURVES = True  # Randomize excitation waveforms and timing
+```
+
+### 3. Explicit Recipe List (`SAMPLING_MODE = "explicit_list"`)
+Executes an exact sequence of predefined simulation parameter sets:
+```python
+EXPLICIT_RUNS = [
+    {"c1": 10.0, "Tmax": 0.8, "ca0": 4.0},
+    {"c1": 13.85, "Tmax": 1.0, "ca0": 4.35},
+    {"c1": 16.0, "Tmax": 1.2, "ca0": 4.8}
+]
+```
+
+---
+
+## Pre-Flight Verification & Safeguards
+
+To prevent configuration errors and unintended long runs, the pipeline includes built-in failsafes:
+* **Pre-Flight Banner:** Displays active sampling mode, total planned runs, ID range, and parameter axes before starting.
+* **Combinatorial Explosion Safeguard:** If a grid sweep produces more simulations than `GRID_MAX_SIMS_SAFEGUARD` (default: 50 for ellipsoid), the script halts immediately with an informative message unless `--force` is provided.
+* **Single Mode Enforcement:** Raises a clear error if an invalid or misspelled mode name is supplied.
+
+### Dry-Run Inspection (`--dry-run`)
+Before committing compute time or creating new directories, `--dry-run` computes the exact parameter combinations, target simulation IDs, and excitation modes without invoking the FEBio solver or writing any files to disk.
+
+```bash
+python scripts/generate_dataset.py --dry-run
+```
+
+**Example Terminal Output:**
+```text
+================================================================================
+  FEBio Parametric Generation - Pre-Flight Check
+================================================================================
+  [Active Sampling Mode] : GRID
+  [Total Runs Planned]   : 4 simulations
+  [Execution Range]      : sim_016 to sim_019 (APPEND/RESUME)
+  [Load Curve Mode]      : FIXED (Baseline 1.0 ramp-and-hold excitation)
+  [Grid Axes]            : {'c1': [10.0, 14.0], 'Tmax': [0.8, 1.2], 'ca0': [4.35]}
+================================================================================
+
+[DRY-RUN] Planned simulation queue preview:
+  sim_016: c1=10.0, Tmax=0.8, ca0=4.35 | LC: baseline (1.0 ramp-and-hold)
+  sim_017: c1=10.0, Tmax=1.2, ca0=4.35 | LC: baseline (1.0 ramp-and-hold)
+  sim_018: c1=14.0, Tmax=0.8, ca0=4.35 | LC: baseline (1.0 ramp-and-hold)
+  sim_019: c1=14.0, Tmax=1.2, ca0=4.35 | LC: baseline (1.0 ramp-and-hold)
+
+[DRY-RUN] Completed. Exiting without modifying files.
+```
 
 ---
 
 ## Running the Pipeline
 
-### 1. Configuration
-Adjust settings in `scripts/config.py`:
-```python
-NUM_SIMULATIONS = 8         # Number of simulations to generate in this batch
-RANDOM_SEED = 42            # Seed for deterministic reproducibility
-OVERWRITE_EXISTING = False  # False = resume from next index; True = start at sim_001
-
-ENABLE_VARYING_LOAD_CURVES = True
-```
-
-### 2. Execution
-Run the orchestrator from the module directory:
 ```bash
 cd sample_ellipsoid_parametric_dataset
-python scripts/generate_dataset.py
-```
 
-* **Automatic Resume (Default):** Identifies the highest existing simulation index and continues from the next integer (e.g. starting at `sim_008` if `sim_001`–`sim_007` exist). New runs are appended to `dataset_manifest.csv` and merged into `dataset_manifest.json`.
-* **Specify Batch Size:** `python scripts/generate_dataset.py --num-sims 10`
-* **Restart:** `python scripts/generate_dataset.py --overwrite`
+# Run active mode defined in config.py (auto-resumes from next index)
+python scripts/generate_dataset.py
+
+# Preview execution plan without running
+python scripts/generate_dataset.py --dry-run
+
+# Run deterministic grid sweep
+python scripts/generate_dataset.py --mode grid
+
+# Run Monte Carlo random batch of 5 runs
+python scripts/generate_dataset.py --mode random --num-sims 5
+
+# Run explicit predefined recipes
+python scripts/generate_dataset.py --mode explicit_list
+
+# Restart dataset from sim_001
+python scripts/generate_dataset.py --overwrite
+```
 
 ---
 
 ## Generated Outputs & Manifests
 
 ### 1. Summary Manifest (`dataset_manifest.csv`)
-Tabular log of all runs:
-* `sim_id`, `status` (`COMPLETED` / `FAILED`)
+Tabular record of all runs:
+* `sim_id`, `sampling_mode`, `status` (`COMPLETED` / `FAILED`)
 * Constitutive parameters: `c1`, `Tmax`, `ca0`
 * Excitation parameters: `lc_profile`, `lc_interp`, `lc_extend`, `lc_Amax`
-* Solver metrics and dimensions: `execution_time_sec`, `vtk_count`, `nodal_rows`, `element_rows`
+* Solver metrics: `execution_time_sec`, `vtk_count`, `nodal_rows`, `element_rows`
 
 ### 2. Provenance Record (`dataset_manifest.json`)
-Machine-readable JSON record containing global parameters, curve settings, file paths, and exact load curve $[t, y]$ control coordinates for each run.
-
-### 3. Simulation Directories (`dataset/sim_*/`)
-Each simulation folder contains:
-* Model files: `{sim_id}.feb`, `{sim_id}.log`, `febio_execution.log`
-* VTK timestep exports: `{sim_id}.0.vtk` through `.50.vtk`
-* Extracted datasets: `nodal_timeseries.csv`, `element_timeseries.csv`, and `simulation_metadata.json`
+Full JSON provenance tracking active sampling mode, grid/random parameter configurations, and exact $[t, y]$ load curve control points.

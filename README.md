@@ -45,7 +45,9 @@ data_pipeline/
 
 ## 3. Excitation & Load Curve Processing
 
-The pipeline extracts time-varying active muscle excitation signals by parsing `<LoadData>` elements within the `.feb` file.
+The pipeline extracts and parametrizes time-varying active muscle excitation signals by parsing `<LoadData>` elements within the `.feb` file.
+
+![FEBio Dynamic Load Curve Archetypes](docs/images/load_curve_archetypes.png)
 
 ### Interpolation Methods
 * **`LINEAR`**: Piecewise linear interpolation between discrete time-activation control points.
@@ -158,22 +160,36 @@ The pipeline runs in two distinct phases: **Simulation Execution (FEBio)** follo
 
 ## 8. Parametric Batch Generators (Multi-Geometry)
 
-For parametric studies varying material properties ($c_1, T_{\max}, ca_0$) and dynamic load curves (twitches, ramps, cyclic loading), self-contained batch runners are provided across three muscle geometries:
+For parametric studies across constitutive parameters ($c_1, T_{\max}, ca_0$) and excitation dynamics, self-contained batch orchestrators are provided across three muscle geometries:
 
-1. **Idealized Fusiform Ellipsoid:** [`sample_ellipsoid_parametric_dataset/`](sample_ellipsoid_parametric_dataset/) (634 nodes, 2,516 elements)
-   ```bash
-   cd sample_ellipsoid_parametric_dataset
-   python scripts/generate_dataset.py
-   ```
-2. **Anatomical Human Biceps Brachii:** [`sample_biceps_parametric_dataset/`](sample_biceps_parametric_dataset/) (4,749 nodes, 15,857 elements)
-   ```bash
-   cd sample_biceps_parametric_dataset
-   python scripts/generate_dataset.py
-   ```
-3. **Anatomical Human Tibialis Anterior (TA):** [`sample_ta_parametric_dataset/`](sample_ta_parametric_dataset/) (44,684 nodes, 196,999 elements)
-   ```bash
-   cd sample_ta_parametric_dataset
-   python scripts/generate_dataset.py
-   ```
+1. **Idealized Fusiform Ellipsoid:** [`sample_ellipsoid_parametric_dataset/`](sample_ellipsoid_parametric_dataset/) (634 nodes, 2,516 elements; ~1.2s per run)
+2. **Anatomical Human Biceps Brachii:** [`sample_biceps_parametric_dataset/`](sample_biceps_parametric_dataset/) (4,749 nodes, 15,857 elements; ~8s per run)
+3. **Anatomical Human Tibialis Anterior (TA):** [`sample_ta_parametric_dataset/`](sample_ta_parametric_dataset/) (44,684 nodes, 196,999 elements; ~4.5 min per run)
 
-All three modules support automatic index continuation, randomized Latin-style parameter sampling, dynamic load curve generation, and automated dataset manifests (`dataset_manifest.csv` and `dataset_manifest.json`).
+### Flexible Sampling Modes & CLI Options
+Each module's `scripts/config.py` and `scripts/generate_dataset.py` support three operational sampling modes:
+* **Deterministic Grid Sweeps (`--mode grid`):** Cartesian product across discrete values or step-wise ranges. Includes a load curve toggle (`GRID_INCLUDE_LOAD_CURVE = False | True`) to choose between keeping excitation fixed at baseline or varying excitation systematically.
+* **Monte Carlo Random Sampling (`--mode random`):** Uniform sampling within continuous parameter intervals with optional randomized dynamic waveforms (`ENABLE_VARYING_LOAD_CURVES`).
+* **Explicit Custom Recipes (`--mode explicit_list`):** Iterates through predefined simulation dictionaries.
+
+### Pre-Flight Verification & Safeguards
+* **Pre-Flight Banner:** Confirms the active sampling mode, total planned runs, target simulation ID range, and parameter axes before solving.
+* **Safe Run Thresholds:** Failsafe limits (`GRID_MAX_SIMS_SAFEGUARD`) prevent unintended combinatorial explosions from high mesh counts (bypassed with `--force`).
+* **Dry-Run Inspection (`--dry-run`):** Displays a full preview table of the planned simulation queue, auto-resumed simulation IDs, and parameter values without executing the solver or modifying any files on disk.
+
+```bash
+# Example usage in any dataset module:
+cd sample_ellipsoid_parametric_dataset
+
+# Run active mode from config.py (auto-resumes from next available sim_XXX index)
+python scripts/generate_dataset.py
+
+# Preview execution plan without running
+python scripts/generate_dataset.py --dry-run
+
+# Run deterministic grid sweep
+python scripts/generate_dataset.py --mode grid
+
+# Run Monte Carlo random batch of 5 runs
+python scripts/generate_dataset.py --mode random --num-sims 5
+```
