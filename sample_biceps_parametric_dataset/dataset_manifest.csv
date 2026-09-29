@@ -1,6 +1,7 @@
-sim_id,status,c1,Tmax,ca0,lc_profile,lc_interp,lc_extend,lc_Amax,execution_time_sec,vtk_count,nodal_rows,element_rows,timestamp,folder
-sim_001,COMPLETED,10.2,1.1,3.9,cyclic,SMOOTH,REPEAT,0.59,8.25,51,238221,806463,2026-09-13 23:27:38,dataset/sim_001
-sim_002,COMPLETED,12.5,1.0,4.7,ramp_and_hold,SMOOTH,CONSTANT,0.67,7.69,51,238221,806463,2026-09-13 23:31:21,dataset/sim_002
-sim_003,COMPLETED,11.6,1.0,3.9,cyclic,LINEAR,REPEAT,0.82,8.08,51,238221,806463,2026-09-13 23:31:46,dataset/sim_003
-sim_004,COMPLETED,15.3,1.0,4.4,twitch,SMOOTH,CONSTANT,0.45,7.77,51,238221,806463,2026-09-13 23:32:11,dataset/sim_004
-sim_005,COMPLETED,12.1,1.0,4.3,ramp_and_hold,SMOOTH,CONSTANT,0.63,7.31,51,238221,806463,2026-09-13 23:32:36,dataset/sim_005
+sim_id,status,c1,Tmax,ca0,lc_profile,lc_interp,lc_extend,lc_Amax,execution_time_sec,vtk_count,nodal_rows,element_rows,timestamp,folder,sampling_mode
+sim_001,COMPLETED,10.2,1.1,3.9,cyclic,SMOOTH,REPEAT,0.59,8.25,51,238221,806463,2026-09-13 23:27:38,dataset/sim_001,random (legacy)
+sim_002,COMPLETED,12.5,1.0,4.7,ramp_and_hold,SMOOTH,CONSTANT,0.67,7.69,51,238221,806463,2026-09-13 23:31:21,dataset/sim_002,random (legacy)
+sim_003,COMPLETED,11.6,1.0,3.9,cyclic,LINEAR,REPEAT,0.82,8.08,51,238221,806463,2026-09-13 23:31:46,dataset/sim_003,random (legacy)
+sim_004,COMPLETED,15.3,1.0,4.4,twitch,SMOOTH,CONSTANT,0.45,7.77,51,238221,806463,2026-09-13 23:32:11,dataset/sim_004,random (legacy)
+sim_005,COMPLETED,12.1,1.0,4.3,ramp_and_hold,SMOOTH,CONSTANT,0.63,7.31,51,238221,806463,2026-09-13 23:32:36,dataset/sim_005,random (legacy)
+sim_006,COMPLETED,10.2,1.1,3.9,cyclic,SMOOTH,REPEAT,0.59,10.86,51,238221,806463,2026-09-30 01:19:47,dataset/sim_006,random

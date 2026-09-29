@@ -93,9 +93,49 @@
                 1.5
             ]
         },
-        "total_simulations": 5,
-        "successful_simulations": 5,
-        "last_updated": "2026-09-13T23:32:36.071071"
+        "total_simulations": 6,
+        "successful_simulations": 6,
+        "last_updated": "2026-09-30T01:19:47.431777",
+        "sampling_mode": "random",
+        "grid_parameters": {
+            "c1": [
+                10.0,
+                14.0
+            ],
+            "Tmax": [
+                0.8,
+                1.2
+            ],
+            "ca0": [
+                4.35
+            ]
+        },
+        "random_parameters": {
+            "c1": {
+                "range": [
+                    10.0,
+                    16.0
+                ],
+                "precision": 1,
+                "description": "Matrix shear modulus (kPa)"
+            },
+            "Tmax": {
+                "range": [
+                    0.8,
+                    1.2
+                ],
+                "precision": 1,
+                "description": "Peak isometric active tension (kPa)"
+            },
+            "ca0": {
+                "range": [
+                    3.8,
+                    4.8
+                ],
+                "precision": 1,
+                "description": "Half-activation calcium concentration (umol/l)"
+            }
+        }
     },
     "simulations": {
         "sim_001": {
@@ -348,6 +388,58 @@
                     [
                         5.0,
                         0.63
+                    ]
+                ]
+            }
+        },
+        "sim_006": {
+            "status": "COMPLETED",
+            "sampling_mode": "random",
+            "parameters": {
+                "c1": 10.2,
+                "Tmax": 1.1,
+                "ca0": 3.9
+            },
+            "folder": "dataset/sim_006",
+            "files": {
+                "feb_file": "sim_006.feb",
+                "log_file": "sim_006.log",
+                "solver_log": "febio_execution.log",
+                "nodal_csv": "nodal_timeseries.csv",
+                "element_csv": "element_timeseries.csv",
+                "metadata_json": "simulation_metadata.json",
+                "vtk_count": 51
+            },
+            "solve_time_sec": 10.86,
+            "load_curve": {
+                "profile": "cyclic",
+                "interpolate": "SMOOTH",
+                "extend": "REPEAT",
+                "parameters": {
+                    "A_max": 0.59,
+                    "t_cycle": 1.12,
+                    "t_peak": 0.45
+                },
+                "points": [
+                    [
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        0.23,
+                        0.29
+                    ],
+                    [
+                        0.45,
+                        0.59
+                    ],
+                    [
+                        0.79,
+                        0.29
+                    ],
+                    [
+                        1.12,
+                        0.0
                     ]
                 ]
             }

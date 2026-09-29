@@ -4,7 +4,7 @@ Supports:
   1. Deterministic grid parameter sweeps (Cartesian product)
   2. Monte Carlo random sampling
   3. Predefined explicit simulation recipe lists
-Includes automatic index continuation, load curve toggling, and failsafe pre-flight checks.
+Includes automatic index continuation, load curve toggling, in-situ prestretch control, and failsafe pre-flight checks.
 """
 
 import os
@@ -28,11 +28,16 @@ if SCRIPTS_DIR not in sys.path:
 
 from config import (
     BASE_TEMPLATE_PATH,
+    PRESTRETCH_TEMPLATE_PATH,
     DATASET_DIR,
     FEBIO_SOLVER_PATH,
     VALID_MODES,
     SAMPLING_MODE,
     OVERWRITE_EXISTING,
+    ENABLE_PRESTRETCH,
+    GRID_PRESTRETCH_VALUES,
+    RANDOM_PRESTRETCH_RANGE,
+    RANDOM_PRESTRETCH_PRECISION,
     GRID_PARAMETERS,
     GRID_INCLUDE_LOAD_CURVE,
     GRID_LOAD_CURVE,
@@ -49,10 +54,7 @@ from data_extraction import build_timeseries_dataset, extract_input_parameters
 
 
 def get_next_sim_index(dataset_dir):
-    """
-    Finds the highest existing sim_XXX index in dataset_dir and returns the next integer.
-    Returns 1 if no existing simulation directories are found.
-    """
+    """Finds the highest existing sim_XXX directory and returns the next integer index."""
     if not os.path.exists(dataset_dir):
         return 1
     existing_dirs = glob.glob(os.path.join(dataset_dir, "sim_*"))
@@ -66,225 +68,225 @@ def get_next_sim_index(dataset_dir):
 
 
 def expand_parameter_axis(param_name, spec):
-    """
-    Expands a grid parameter specification into a concrete list of numeric values.
-    Supports either:
-      - A discrete list: [10.0, 14.0]
-      - A range dict: {"min": 10.0, "max": 16.0, "step": 3.0}
-    """
+    """Expands a parameter axis from either a discrete list or a {min, max, step} dict."""
     if isinstance(spec, list):
-        return [float(v) for v in spec]
-    if isinstance(spec, dict):
-        min_val = float(spec["min"])
-        max_val = float(spec["max"])
-        step = float(spec["step"])
-        if step <= 0:
-            raise ValueError(f"Step size for '{param_name}' must be positive, got {step}")
-        if min_val > max_val:
-            raise ValueError(f"min must be <= max for '{param_name}', got min={min_val}, max={max_val}")
-        vals = np.arange(min_val, max_val + step * 0.5, step)
-        return [round(float(v), 4) for v in vals]
-    raise TypeError(f"Invalid parameter spec for '{param_name}'. Must be a list or dict with min/max/step.")
+        if not spec:
+            raise ValueError(f"Parameter list for '{param_name}' cannot be empty.")
+        return [round(float(v), 4) for v in spec]
+    elif isinstance(spec, dict):
+        required = {"min", "max", "step"}
+        if not required.issubset(spec.keys()):
+            raise ValueError(
+                f"Range spec for '{param_name}' must contain 'min', 'max', and 'step'. Got: {spec}"
+            )
+        p_min, p_max, p_step = float(spec["min"]), float(spec["max"]), float(spec["step"])
+        if p_step <= 0 or p_min > p_max:
+            raise ValueError(f"Invalid range or step for parameter '{param_name}': {spec}")
+        values = np.arange(p_min, p_max + (p_step * 0.5), p_step).tolist()
+        return [round(v, 4) for v in values]
+    else:
+        raise TypeError(
+            f"Expected list or dict for parameter axis '{param_name}', got {type(spec).__name__}"
+        )
 
 
 def build_deterministic_load_curve(profile, amplitude, interpolate):
-    """
-    Generates a deterministic load curve definition for grid sweeps.
-    """
-    a_max = round(float(amplitude), 2)
-    interp = str(interpolate).upper()
+    """Builds a discrete, fully deterministic load curve definition for grid sweeps."""
+    interpolate = interpolate.upper()
+    total_time = 5.0
     
     if profile == "ramp_and_hold":
-        t_rise = 1.0
-        extend = "CONSTANT"
-        if interp == "SMOOTH":
-            points = [
-                (0.0, 0.0),
-                (round(t_rise * 0.4, 2), round(a_max * 0.35, 2)),
-                (round(t_rise * 0.8, 2), round(a_max * 0.90, 2)),
-                (t_rise, a_max),
-                (5.0, a_max)
-            ]
+        t_ramp = 1.0
+        if interpolate == "SMOOTH":
+            s_pts = 6
+            t_vals = np.linspace(0.0, t_ramp, s_pts)
+            curve_pts = [[0.0, 0.0]]
+            for t in t_vals[1:]:
+                tau = t / t_ramp
+                s_shape = tau * tau * (3.0 - 2.0 * tau)
+                curve_pts.append([round(float(t), 4), round(float(amplitude * s_shape), 4)])
+            curve_pts.append([total_time, round(float(amplitude), 4)])
         else:
-            points = [
-                (0.0, 0.0),
-                (t_rise, a_max),
-                (5.0, a_max)
+            curve_pts = [
+                [0.0, 0.0],
+                [t_ramp, round(float(amplitude), 4)],
+                [total_time, round(float(amplitude), 4)]
             ]
-        params = {"A_max": a_max, "t_rise": t_rise}
+        params = {"A_max": amplitude, "t_ramp": t_ramp, "t_total": total_time}
         
     elif profile == "twitch":
-        t1, t2, t3 = 1.0, 1.8, 2.8
-        extend = "CONSTANT"
-        if interp == "SMOOTH":
-            points = [
-                (0.0, 0.0),
-                (round(t1 * 0.5, 2), round(a_max * 0.45, 2)),
-                (t1, a_max),
-                (t2, a_max),
-                (round(t2 + (t3 - t2) * 0.5, 2), round(a_max * 0.45, 2)),
-                (t3, 0.0),
-                (5.0, 0.0)
-            ]
+        t_rise = 0.8
+        t_hold = 0.4
+        t_relax = 1.0
+        t1 = t_rise
+        t2 = t1 + t_hold
+        t3 = t2 + t_relax
+        if interpolate == "SMOOTH":
+            s_pts = 5
+            curve_pts = [[0.0, 0.0]]
+            for t in np.linspace(0.0, t1, s_pts)[1:]:
+                tau = t / t1
+                s_shape = tau * tau * (3.0 - 2.0 * tau)
+                curve_pts.append([round(float(t), 4), round(float(amplitude * s_shape), 4)])
+            curve_pts.append([round(float(t2), 4), round(float(amplitude), 4)])
+            for t in np.linspace(t2, t3, s_pts)[1:]:
+                tau = (t - t2) / t_relax
+                s_shape = 1.0 - (tau * tau * (3.0 - 2.0 * tau))
+                curve_pts.append([round(float(t), 4), round(float(amplitude * s_shape), 4)])
+            curve_pts.append([total_time, 0.0])
         else:
-            points = [
-                (0.0, 0.0),
-                (t1, a_max),
-                (t2, a_max),
-                (t3, 0.0),
-                (5.0, 0.0)
+            curve_pts = [
+                [0.0, 0.0],
+                [round(t1, 4), round(float(amplitude), 4)],
+                [round(t2, 4), round(float(amplitude), 4)],
+                [round(t3, 4), 0.0],
+                [total_time, 0.0]
             ]
-        params = {"A_max": a_max, "t_rise": t1, "t_hold": round(t2 - t1, 2), "t_relax": round(t3 - t2, 2)}
+        params = {"A_max": amplitude, "t_rise": t_rise, "t_hold": t_hold, "t_relax": t_relax}
         
     elif profile == "cyclic":
-        t_cycle = 1.2
-        t_peak = 0.48
-        extend = "REPEAT"
-        if interp == "SMOOTH":
-            points = [
-                (0.0, 0.0),
-                (round(t_peak * 0.5, 2), round(a_max * 0.5, 2)),
-                (t_peak, a_max),
-                (round(t_peak + (t_cycle - t_peak) * 0.5, 2), round(a_max * 0.5, 2)),
-                (t_cycle, 0.0)
-            ]
-        else:
-            points = [
-                (0.0, 0.0),
-                (t_peak, a_max),
-                (t_cycle, 0.0)
-            ]
-        params = {"A_max": a_max, "t_cycle": t_cycle, "t_peak": t_peak}
+        t_period = 1.2
+        num_cycles = 3
+        pts_per_cycle = 4
+        total_pts = (num_cycles * pts_per_cycle) + 1
+        t_end = min(total_time, num_cycles * t_period)
+        t_arr = np.linspace(0.0, t_end, total_pts)
+        curve_pts = []
+        for t in t_arr:
+            phase = (2.0 * np.pi * t) / t_period
+            val = (amplitude / 2.0) * (1.0 - np.cos(phase))
+            curve_pts.append([round(float(t), 4), round(float(val), 4)])
+        if t_end < total_time:
+            curve_pts.append([total_time, 0.0])
+        params = {"A_max": amplitude, "t_period": t_period, "num_cycles": num_cycles}
+        
     else:
-        raise ValueError(f"Unsupported load curve profile: {profile}")
+        raise ValueError(f"Unsupported profile for grid load curve: {profile}")
         
     return {
         "profile": profile,
-        "interpolate": interp,
-        "extend": extend,
-        "points": points,
-        "parameters": params
+        "interpolate": interpolate,
+        "extend": "CONSTANT",
+        "parameters": params,
+        "points": curve_pts
     }
 
 
 def sample_parameters(varied_config, sim_index, base_seed):
-    """
-    Sample values uniformly within defined ranges for Monte Carlo mode.
-    Uses base_seed + sim_index to ensure deterministic reproducibility.
-    """
-    rng = random.Random(base_seed + sim_index if base_seed is not None else None)
+    """Deterministically samples parameters for a given simulation index and base seed."""
     sampled = {}
-    for param, cfg in varied_config.items():
-        low, high = cfg["range"]
-        precision = cfg.get("precision", 1)
-        sampled[param] = round(rng.uniform(low, high), precision)
+    for i, (param_name, conf) in enumerate(varied_config.items()):
+        p_seed = base_seed + (sim_index * 100) + i
+        rng = random.Random(p_seed)
+        p_min, p_max = conf["range"]
+        val = rng.uniform(p_min, p_max)
+        sampled[param_name] = round(val, conf["precision"])
     return sampled
 
 
 def sample_load_curve(sim_index, base_seed, config):
-    """
-    Generates a randomized load curve profile based on LOAD_CURVE_CONFIG.
-    """
-    rng = random.Random((base_seed + 1000 + sim_index) if base_seed is not None else None)
-    
-    allowed_profiles = config.get("allowed_profiles", ["ramp_and_hold", "twitch", "cyclic"])
-    allowed_interp = config.get("allowed_interpolations", ["LINEAR", "SMOOTH"])
-    
-    profile = rng.choice(allowed_profiles)
-    interp = rng.choice(allowed_interp)
-    
-    amp_min, amp_max = config.get("amplitude_range", (0.4, 1.0))
-    a_max = round(rng.uniform(amp_min, amp_max), 2)
-    
+    """Generates varied load curve control points and interpolation styles."""
+    lc_seed = base_seed + (sim_index * 100) + 99
+    rng = random.Random(lc_seed)
+
+    profile = rng.choice(config["allowed_profiles"])
+    interpolate = rng.choice(config["allowed_interpolations"])
+    A_max = round(rng.uniform(*config["amplitude_range"]), 2)
+    total_time = 5.0
+
     if profile == "ramp_and_hold":
-        rise_min, rise_max = config.get("rise_time_range", (0.5, 2.0))
-        t_rise = round(rng.uniform(rise_min, rise_max), 2)
-        extend = "CONSTANT"
-        if interp == "SMOOTH":
-            points = [
-                (0.0, 0.0),
-                (round(t_rise * 0.4, 2), round(a_max * 0.35, 2)),
-                (round(t_rise * 0.8, 2), round(a_max * 0.90, 2)),
-                (t_rise, a_max),
-                (5.0, a_max)
-            ]
+        t_ramp = round(rng.uniform(*config["rise_time_range"]), 2)
+        if interpolate == "SMOOTH":
+            s_pts = 6
+            t_vals = np.linspace(0.0, t_ramp, s_pts)
+            curve_pts = [[0.0, 0.0]]
+            for t in t_vals[1:]:
+                tau = t / t_ramp
+                s_shape = tau * tau * (3.0 - 2.0 * tau)
+                curve_pts.append([round(float(t), 4), round(float(A_max * s_shape), 4)])
+            curve_pts.append([total_time, A_max])
         else:
-            points = [
-                (0.0, 0.0),
-                (t_rise, a_max),
-                (5.0, a_max)
+            curve_pts = [
+                [0.0, 0.0],
+                [t_ramp, A_max],
+                [total_time, A_max]
             ]
-        params = {"A_max": a_max, "t_rise": t_rise}
-        
+        params = {"A_max": A_max, "t_ramp": t_ramp, "t_total": total_time}
+
     elif profile == "twitch":
-        rise_min, rise_max = config.get("rise_time_range", (0.5, 1.5))
-        t_rise = round(rng.uniform(rise_min, rise_max), 2)
-        hold_min, hold_max = config.get("hold_duration_range", (0.5, 1.2))
-        t_hold = round(rng.uniform(hold_min, hold_max), 2)
-        relax_min, relax_max = config.get("relax_duration_range", (0.6, 1.5))
-        t_relax = round(rng.uniform(relax_min, relax_max), 2)
-        
+        t_rise = round(rng.uniform(*config["rise_time_range"]), 2)
+        t_hold = round(rng.uniform(*config["hold_duration_range"]), 2)
+        t_relax = round(rng.uniform(*config["relax_duration_range"]), 2)
+
         t1 = t_rise
         t2 = round(t1 + t_hold, 2)
         t3 = round(t2 + t_relax, 2)
-        if t3 > 4.8:
-            t3 = 4.8
-            t2 = min(t2, 3.5)
-            
-        extend = "CONSTANT"
-        if interp == "SMOOTH":
-            points = [
-                (0.0, 0.0),
-                (round(t1 * 0.5, 2), round(a_max * 0.45, 2)),
-                (t1, a_max),
-                (t2, a_max),
-                (round(t2 + (t3 - t2) * 0.5, 2), round(a_max * 0.45, 2)),
-                (t3, 0.0),
-                (5.0, 0.0)
-            ]
+
+        if interpolate == "SMOOTH":
+            s_pts = 5
+            curve_pts = [[0.0, 0.0]]
+            for t in np.linspace(0.0, t1, s_pts)[1:]:
+                tau = t / t1
+                s_shape = tau * tau * (3.0 - 2.0 * tau)
+                curve_pts.append([round(float(t), 4), round(float(A_max * s_shape), 4)])
+            curve_pts.append([t2, A_max])
+            for t in np.linspace(t2, t3, s_pts)[1:]:
+                tau = (t - t2) / t_relax
+                s_shape = 1.0 - (tau * tau * (3.0 - 2.0 * tau))
+                curve_pts.append([round(float(t), 4), round(float(A_max * s_shape), 4)])
+            curve_pts.append([total_time, 0.0])
         else:
-            points = [
-                (0.0, 0.0),
-                (t1, a_max),
-                (t2, a_max),
-                (t3, 0.0),
-                (5.0, 0.0)
+            curve_pts = [
+                [0.0, 0.0],
+                [t1, A_max],
+                [t2, A_max],
+                [t3, 0.0],
+                [total_time, 0.0]
             ]
-        params = {"A_max": a_max, "t_rise": t_rise, "t_hold": t_hold, "t_relax": t_relax}
-        
+        params = {
+            "A_max": A_max,
+            "t_rise": t_rise,
+            "t_hold": t_hold,
+            "t_relax": t_relax,
+            "t_total": total_time
+        }
+
     elif profile == "cyclic":
-        cycle_min, cycle_max = config.get("cycle_period_range", (1.0, 1.5))
-        t_cycle = round(rng.uniform(cycle_min, cycle_max), 2)
-        t_peak = round(t_cycle * 0.4, 2)
-        extend = "REPEAT"
-        if interp == "SMOOTH":
-            points = [
-                (0.0, 0.0),
-                (round(t_peak * 0.5, 2), round(a_max * 0.5, 2)),
-                (t_peak, a_max),
-                (round(t_peak + (t_cycle - t_peak) * 0.5, 2), round(a_max * 0.5, 2)),
-                (t_cycle, 0.0)
-            ]
-        else:
-            points = [
-                (0.0, 0.0),
-                (t_peak, a_max),
-                (t_cycle, 0.0)
-            ]
-        params = {"A_max": a_max, "t_cycle": t_cycle, "t_peak": t_peak}
-        
+        t_period = round(rng.uniform(*config["cycle_period_range"]), 2)
+        num_cycles = max(2, int(total_time // t_period))
+        pts_per_cycle = 4
+        total_pts = (num_cycles * pts_per_cycle) + 1
+        t_end = min(total_time, num_cycles * t_period)
+        t_arr = np.linspace(0.0, t_end, total_pts)
+        curve_pts = []
+        for t in t_arr:
+            phase = (2.0 * np.pi * t) / t_period
+            val = (A_max / 2.0) * (1.0 - np.cos(phase))
+            curve_pts.append([round(float(t), 4), round(float(val), 4)])
+        if t_end < total_time:
+            curve_pts.append([total_time, 0.0])
+        params = {
+            "A_max": A_max,
+            "t_period": t_period,
+            "num_cycles": num_cycles,
+            "t_total": total_time
+        }
+
+    else:
+        raise ValueError(f"Unknown excitation profile: {profile}")
+
     return {
         "profile": profile,
-        "interpolate": interp,
-        "extend": extend,
-        "points": points,
-        "parameters": params
+        "interpolate": interpolate,
+        "extend": "CONSTANT",
+        "parameters": params,
+        "points": curve_pts
     }
 
 
-def build_simulation_queue(mode, num_sims=None, seed=None):
+def build_simulation_queue(mode, num_sims=None, seed=None, enable_prestretch=False):
     """
-    Constructs the exact list of simulation specifications based on the selected mode.
+    Constructs the exact list of simulation specifications based on the selected mode and prestretch flag.
     Returns:
       queue: list of dicts: {"params": dict, "load_curve_data": dict or None, "mode": str}
       details: summary dict for pre-flight logging
@@ -292,8 +294,16 @@ def build_simulation_queue(mode, num_sims=None, seed=None):
     queue = []
     
     if mode == "grid":
-        param_names = list(GRID_PARAMETERS.keys())
-        param_axes = [expand_parameter_axis(k, GRID_PARAMETERS[k]) for k in param_names]
+        base_param_names = list(GRID_PARAMETERS.keys())
+        base_axes = [expand_parameter_axis(k, GRID_PARAMETERS[k]) for k in base_param_names]
+        
+        if enable_prestretch:
+            param_names = base_param_names + ["pre_stretch"]
+            param_axes = base_axes + [GRID_PRESTRETCH_VALUES]
+        else:
+            param_names = base_param_names
+            param_axes = base_axes
+            
         mat_combos = list(itertools.product(*param_axes))
         
         if GRID_INCLUDE_LOAD_CURVE:
@@ -315,6 +325,8 @@ def build_simulation_queue(mode, num_sims=None, seed=None):
         details = {
             "mode": "grid",
             "parameters": GRID_PARAMETERS,
+            "prestretch_enabled": enable_prestretch,
+            "prestretch_values": GRID_PRESTRETCH_VALUES if enable_prestretch else None,
             "load_curve_included": GRID_INCLUDE_LOAD_CURVE,
             "total_runs": len(queue)
         }
@@ -325,12 +337,17 @@ def build_simulation_queue(mode, num_sims=None, seed=None):
         s_seed = seed if seed is not None else RANDOM_SEED
         for i in range(count):
             sampled = sample_parameters(VARIED_PARAMETERS, i + 1, s_seed)
+            if enable_prestretch:
+                rng_ps = random.Random(s_seed + ((i + 1) * 100) + 50)
+                sampled["pre_stretch"] = round(rng_ps.uniform(*RANDOM_PRESTRETCH_RANGE), RANDOM_PRESTRETCH_PRECISION)
             lc_data = sample_load_curve(i + 1, s_seed, LOAD_CURVE_CONFIG) if ENABLE_VARYING_LOAD_CURVES else None
             queue.append({"params": sampled, "load_curve_data": lc_data, "mode": "random"})
             
         details = {
             "mode": "random",
             "parameters": VARIED_PARAMETERS,
+            "prestretch_enabled": enable_prestretch,
+            "prestretch_range": RANDOM_PRESTRETCH_RANGE if enable_prestretch else None,
             "load_curve_included": ENABLE_VARYING_LOAD_CURVES,
             "total_runs": len(queue)
         }
@@ -339,6 +356,8 @@ def build_simulation_queue(mode, num_sims=None, seed=None):
     elif mode == "explicit_list":
         for entry in EXPLICIT_RUNS:
             params = {k: v for k, v in entry.items() if k != "load_curve"}
+            if enable_prestretch and "pre_stretch" not in params:
+                params["pre_stretch"] = GRID_PRESTRETCH_VALUES[0] if GRID_PRESTRETCH_VALUES else 1.05
             lc_spec = entry.get("load_curve")
             lc_data = None
             if lc_spec is not None:
@@ -351,6 +370,7 @@ def build_simulation_queue(mode, num_sims=None, seed=None):
         details = {
             "mode": "explicit_list",
             "explicit_count": len(EXPLICIT_RUNS),
+            "prestretch_enabled": enable_prestretch,
             "load_curve_included": any(e.get("load_curve") is not None for e in EXPLICIT_RUNS),
             "total_runs": len(queue)
         }
@@ -360,8 +380,48 @@ def build_simulation_queue(mode, num_sims=None, seed=None):
         raise ValueError(f"Unrecognized mode: {mode}")
 
 
+def validate_prestretch_template(template_path):
+    """
+    Validates that a template .feb file is properly configured for in-situ prestretch:
+    1. Contains <material type="uncoupled prestrain elastic"> with <prestrain>.
+    2. Contains <ElementData name="pre_stretch"> with at least one <e> tag.
+    Returns (True, element_count) or (False, reason).
+    """
+    try:
+        tree = ET.parse(template_path)
+        root = tree.getroot()
+        
+        prestrain = root.find(".//Material//prestrain")
+        if prestrain is None:
+            return False, "Material does not define <prestrain type='in-situ stretch'> wrapper."
+            
+        elem_data = None
+        mesh_data = root.find("MeshData")
+        if mesh_data is not None:
+            for ed in mesh_data.findall("ElementData"):
+                if ed.get("name") == "pre_stretch":
+                    elem_data = ed
+                    break
+        if elem_data is None:
+            elem_data = root.find(".//ElementData[@name='pre_stretch']")
+            
+        if elem_data is None:
+            return False, "Missing <ElementData name='pre_stretch'> block in MeshData."
+            
+        num_elems = len(elem_data.findall("e"))
+        if num_elems == 0:
+            return False, "<ElementData name='pre_stretch'> exists but contains 0 <e> element tags."
+            
+        return True, num_elems
+    except Exception as exc:
+        return False, f"Failed to parse XML: {exc}"
+
+
 def inject_parameters(template_path, sampled_params, output_path, load_curve_data=None):
-    """Inject sampled constitutive parameters and dynamic load curve into template .feb XML."""
+    """
+    Inject sampled constitutive parameters, in-situ prestretch, and dynamic load curve into template .feb XML.
+    Supports both baseline template and prestretch template with element-wise ElementData mapping.
+    """
     tree = ET.parse(template_path)
     root = tree.getroot()
     
@@ -370,13 +430,36 @@ def inject_parameters(template_path, sampled_params, output_path, load_curve_dat
     if plotfile is not None:
         plotfile.set("type", "vtk")
         
-    # Inject material constitutive parameters
+    # Inject material constitutive parameters (c1, Tmax, ca0, etc.)
     for param, val in sampled_params.items():
+        if param == "pre_stretch":
+            continue
         elem = root.find(f".//{param}")
         if elem is not None:
             elem.text = str(val)
         else:
             print(f"Warning: Element <{param}> not found in template.")
+            
+    # Inject uniform in-situ prestretch if specified
+    if "pre_stretch" in sampled_params:
+        ps_val = str(sampled_params["pre_stretch"])
+        mesh_data = root.find("MeshData")
+        elem_data = None
+        if mesh_data is not None:
+            for ed in mesh_data.findall("ElementData"):
+                if ed.get("name") == "pre_stretch":
+                    elem_data = ed
+                    break
+        if elem_data is None:
+            elem_data = root.find(".//ElementData[@name='pre_stretch']")
+            
+        if elem_data is None or len(elem_data.findall("e")) == 0:
+            raise ValueError(
+                f"Cannot inject pre_stretch: template '{os.path.basename(template_path)}' "
+                f"lacks <ElementData name='pre_stretch'> element entries."
+            )
+        for e in elem_data.findall("e"):
+            e.text = ps_val
             
     # Inject load curve if specified
     if load_curve_data is not None:
@@ -436,7 +519,7 @@ def run_solver(solver_path, feb_file, work_dir):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Parametric FEBio dataset generator supporting grid sweeps, random sampling, and explicit recipes."
+        description="Parametric FEBio dataset generator supporting grid sweeps, random sampling, explicit recipes, and in-situ prestretch."
     )
     parser.add_argument(
         "--mode",
@@ -449,6 +532,18 @@ def main():
         type=int,
         default=None,
         help="Number of simulations to generate in random mode."
+    )
+    parser.add_argument(
+        "--prestretch",
+        action="store_true",
+        default=None,
+        help="Enable uniform in-situ prestretch (overrides config.ENABLE_PRESTRETCH)."
+    )
+    parser.add_argument(
+        "--no-prestretch",
+        action="store_true",
+        default=None,
+        help="Disable in-situ prestretch (overrides config.ENABLE_PRESTRETCH)."
     )
     parser.add_argument(
         "--overwrite",
@@ -471,7 +566,7 @@ def main():
     args = parser.parse_args()
     
     # -------------------------------------------------------------
-    # 1. Mode Validation and Single-Mode Enforcement
+    # 1. Mode and Prestretch Resolution
     # -------------------------------------------------------------
     active_mode = args.mode if args.mode is not None else SAMPLING_MODE
     if active_mode not in VALID_MODES:
@@ -479,21 +574,46 @@ def main():
             f"Error: Invalid mode '{active_mode}'. Allowed choices: {sorted(list(VALID_MODES))}"
         )
         
-    if not os.path.exists(BASE_TEMPLATE_PATH):
-        sys.exit(f"Error: Base template not found at {BASE_TEMPLATE_PATH}")
+    if args.prestretch:
+        use_prestretch = True
+    elif args.no_prestretch:
+        use_prestretch = False
+    else:
+        use_prestretch = ENABLE_PRESTRETCH
+        
+    active_template = PRESTRETCH_TEMPLATE_PATH if use_prestretch else BASE_TEMPLATE_PATH
+    if not os.path.exists(active_template):
+        sys.exit(f"Error: Required template not found at {active_template}")
+
+    detected_prestretch_elems = 0
+    if use_prestretch:
+        is_valid, val_result = validate_prestretch_template(active_template)
+        if not is_valid:
+            sys.exit(
+                f"\nPre-Stretch Configuration Error:\n"
+                f"  Template '{os.path.basename(active_template)}' is not configured for in-situ prestretch.\n"
+                f"  Reason: {val_result}\n\n"
+                f"  Action required: Please provide a verified base template configured in FEBio Studio\n"
+                f"  with the prestrain material wrapper and <ElementData name='pre_stretch'> element mappings.\n"
+            )
+        detected_prestretch_elems = val_result
         
     os.makedirs(DATASET_DIR, exist_ok=True)
     
     # -------------------------------------------------------------
     # 2. Build Simulation Queue & Apply Failsafes
     # -------------------------------------------------------------
-    queue, details = build_simulation_queue(active_mode, num_sims=args.num_sims)
+    queue, details = build_simulation_queue(
+        active_mode,
+        num_sims=args.num_sims,
+        enable_prestretch=use_prestretch
+    )
     total_planned = len(queue)
     
     if total_planned == 0:
         sys.exit("Error: Simulation queue is empty. Check parameter ranges or recipe lists in config.py.")
         
-    # Safeguard check against unintended combinatorial explosions
+    # Prevent grid sweep from exceeding planned run threshold
     if active_mode == "grid" and total_planned > GRID_MAX_SIMS_SAFEGUARD and not args.force:
         sys.exit(
             f"Failsafe Triggered: Planned grid size ({total_planned} runs) exceeds safeguard threshold "
@@ -517,18 +637,33 @@ def main():
         else "FIXED (Baseline 1.0 ramp-and-hold excitation)")
     )
     
+    ps_status = (
+        f"ACTIVE (Grid: {GRID_PRESTRETCH_VALUES})" if (use_prestretch and active_mode == "grid")
+        else (f"ACTIVE (Uniform random in range {RANDOM_PRESTRETCH_RANGE})" if (use_prestretch and active_mode == "random")
+        else ("ACTIVE (Explicit recipe values)" if use_prestretch
+        else "OFF (Baseline 1.00, zero in-situ prestrain)"))
+    )
+    
     print("=" * 80)
     print("  FEBio Parametric Generation - Pre-Flight Check")
     print("=" * 80)
     print(f"  [Active Sampling Mode] : {active_mode.upper()}")
+    print(f"  [Active Template]      : {os.path.basename(active_template)}")
+    print(f"  [Pre-Stretch Mode]     : {ps_status}")
+    if use_prestretch:
+        print(f"  [Pre-Stretch Elements] : {detected_prestretch_elems:,} elements dynamically mapped")
     print(f"  [Total Runs Planned]   : {total_planned} simulations")
     print(f"  [Execution Range]      : sim_{start_idx:03d} to sim_{end_idx:03d} "
           f"({'OVERWRITE sim_001' if args.overwrite else 'APPEND/RESUME'})")
     print(f"  [Load Curve Mode]      : {lc_status}")
     if active_mode == "grid":
         print(f"  [Grid Axes]            : {GRID_PARAMETERS}")
+        if use_prestretch:
+            print(f"  [Pre-Stretch Values]   : {GRID_PRESTRETCH_VALUES}")
     elif active_mode == "random":
         print(f"  [Sampled Intervals]    : {list(VARIED_PARAMETERS.keys())}")
+        if use_prestretch:
+            print(f"  [Pre-Stretch Range]    : {RANDOM_PRESTRETCH_RANGE}")
     print("=" * 80 + "\n")
     
     if args.dry_run:
@@ -568,7 +703,7 @@ def main():
         
         feb_name = f"{sim_id}.feb"
         feb_path = os.path.join(sim_dir, feb_name)
-        inject_parameters(BASE_TEMPLATE_PATH, sampled, feb_path, load_curve_data=load_curve_data)
+        inject_parameters(active_template, sampled, feb_path, load_curve_data=load_curve_data)
         
         ok, solve_time, status_msg = run_solver(FEBIO_SOLVER_PATH, feb_name, sim_dir)
         print(f"       Solver: {status_msg} ({solve_time}s)")
@@ -595,7 +730,10 @@ def main():
             "sim_id": sim_id,
             "sampling_mode": active_mode,
             "status": "COMPLETED" if ok else "FAILED",
-            **sampled
+            "c1": sampled.get("c1"),
+            "Tmax": sampled.get("Tmax"),
+            "ca0": sampled.get("ca0"),
+            "pre_stretch": sampled.get("pre_stretch", 1.0)
         }
         if load_curve_data:
             rec["lc_profile"] = load_curve_data["profile"]
@@ -632,6 +770,11 @@ def main():
         df_old = pd.read_csv(csv_path)
         if "sampling_mode" not in df_old.columns:
             df_old["sampling_mode"] = "random (legacy)"
+        if "pre_stretch" not in df_old.columns:
+            df_old["pre_stretch"] = 1.0
+        else:
+            df_old["pre_stretch"] = df_old["pre_stretch"].fillna(1.0)
+            
         if "lc_profile" not in df_old.columns:
             df_old["lc_profile"] = "ramp_and_hold (baseline)"
             df_old["lc_interp"] = "LINEAR"
@@ -671,13 +814,14 @@ def main():
     manifest["dataset_info"]["sampling_mode"] = active_mode
     manifest["dataset_info"]["grid_parameters"] = GRID_PARAMETERS
     manifest["dataset_info"]["random_parameters"] = VARIED_PARAMETERS
+    manifest["dataset_info"]["prestretch_enabled"] = use_prestretch
     manifest["dataset_info"]["last_updated"] = datetime.datetime.now().isoformat()
     
     for r in records:
         entry = {
             "status": r["status"],
             "sampling_mode": r["sampling_mode"],
-            "parameters": {k: r[k] for k in ["c1", "Tmax", "ca0"] if k in r},
+            "parameters": {k: r[k] for k in ["c1", "Tmax", "ca0", "pre_stretch"] if k in r and r[k] is not None},
             "folder": r["folder"],
             "files": {
                 "feb_file": f"{r['sim_id']}.feb",
@@ -709,12 +853,12 @@ def main():
     with open(json_path, "w", encoding="utf-8") as f:
         json.dump(manifest, f, indent=4)
         
-    print(f"\nManifests updated:")
+    print("\nManifests updated:")
     print(f" - {csv_path} ({len(df_manifest)} total runs recorded)")
     print(f" - {json_path}")
     print("\nBatch Summary:")
     summary_cols = ["sim_id", "sampling_mode", "status"] + [
-        k for k in ["c1", "Tmax", "ca0"] if k in df_new.columns
+        k for k in ["c1", "Tmax", "ca0", "pre_stretch"] if k in df_new.columns
     ] + ["lc_profile", "lc_interp", "lc_Amax", "vtk_count", "execution_time_sec"]
     print(df_new[summary_cols].to_string(index=False))
 

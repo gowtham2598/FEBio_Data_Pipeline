@@ -493,7 +493,7 @@ def main():
     if total_planned == 0:
         sys.exit("Error: Simulation queue is empty. Check parameter ranges or recipe lists in config.py.")
         
-    # Safeguard check against unintended combinatorial explosions
+    # Prevent grid sweep from exceeding planned run threshold
     if active_mode == "grid" and total_planned > GRID_MAX_SIMS_SAFEGUARD and not args.force:
         sys.exit(
             f"Failsafe Triggered: Planned grid size ({total_planned} runs) exceeds safeguard threshold "

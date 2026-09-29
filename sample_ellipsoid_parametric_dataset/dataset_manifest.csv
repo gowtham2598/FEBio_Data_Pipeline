@@ -1,20 +1,23 @@
-sim_id,status,c1,Tmax,ca0,execution_time_sec,vtk_count,nodal_rows,element_rows,timestamp,folder,lc_profile,lc_interp,lc_extend,lc_Amax,sampling_mode
-sim_001,COMPLETED,13.8,0.8,4.1,1.17,51,32334,128316,2026-09-06 22:31:09,dataset/sim_001,ramp_and_hold (baseline),LINEAR,CONSTANT,1.0,random (legacy)
-sim_002,COMPLETED,11.3,1.1,4.5,1.07,51,32334,128316,2026-09-06 22:31:13,dataset/sim_002,ramp_and_hold (baseline),LINEAR,CONSTANT,1.0,random (legacy)
-sim_003,COMPLETED,15.4,0.8,4.2,1.01,51,32334,128316,2026-09-06 22:31:17,dataset/sim_003,ramp_and_hold (baseline),LINEAR,CONSTANT,1.0,random (legacy)
-sim_004,COMPLETED,10.2,0.9,4.3,1.0,51,32334,128316,2026-09-06 22:31:20,dataset/sim_004,ramp_and_hold (baseline),LINEAR,CONSTANT,1.0,random (legacy)
-sim_005,COMPLETED,10.2,0.9,4.4,1.02,51,32334,128316,2026-09-06 22:31:24,dataset/sim_005,ramp_and_hold (baseline),LINEAR,CONSTANT,1.0,random (legacy)
-sim_006,COMPLETED,13.3,0.9,4.5,1.26,51,32334,128316,2026-09-07 23:24:11,dataset/sim_006,ramp_and_hold (baseline),LINEAR,CONSTANT,1.0,random (legacy)
-sim_007,COMPLETED,10.4,1.0,3.9,1.13,51,32334,128316,2026-09-07 23:24:15,dataset/sim_007,ramp_and_hold (baseline),LINEAR,CONSTANT,1.0,random (legacy)
-sim_008,COMPLETED,13.0,0.9,4.4,1.22,51,32334,128316,2026-09-13 19:24:38,dataset/sim_008,twitch,SMOOTH,CONSTANT,0.67,random (legacy)
-sim_009,COMPLETED,11.5,1.0,4.0,1.18,51,32334,128316,2026-09-13 19:24:42,dataset/sim_009,ramp_and_hold,LINEAR,CONSTANT,0.56,random (legacy)
-sim_010,COMPLETED,15.9,0.8,4.5,1.25,51,32334,128316,2026-09-13 19:24:46,dataset/sim_010,ramp_and_hold,LINEAR,CONSTANT,0.59,random (legacy)
-sim_011,COMPLETED,13.7,1.2,4.3,1.25,51,32334,128316,2026-09-13 19:24:50,dataset/sim_011,twitch,SMOOTH,CONSTANT,0.97,random (legacy)
-sim_012,COMPLETED,15.5,0.9,4.4,1.16,51,32334,128316,2026-09-13 19:24:54,dataset/sim_012,ramp_and_hold,LINEAR,CONSTANT,0.87,random (legacy)
-sim_013,COMPLETED,10.5,1.2,3.9,1.22,51,32334,128316,2026-09-13 19:24:58,dataset/sim_013,ramp_and_hold,LINEAR,CONSTANT,0.61,random (legacy)
-sim_014,COMPLETED,15.8,1.0,4.3,1.12,51,32334,128316,2026-09-13 19:25:02,dataset/sim_014,ramp_and_hold,LINEAR,CONSTANT,0.92,random (legacy)
-sim_015,COMPLETED,10.3,1.0,3.8,1.11,51,32334,128316,2026-09-13 19:25:06,dataset/sim_015,cyclic,LINEAR,REPEAT,0.65,random (legacy)
-sim_016,COMPLETED,10.0,0.8,4.35,1.25,51,32334,128316,2026-09-19 21:14:52,dataset/sim_016,ramp_and_hold (baseline),LINEAR,CONSTANT,1.0,grid
-sim_017,COMPLETED,10.0,1.2,4.35,1.14,51,32334,128316,2026-09-19 21:14:56,dataset/sim_017,ramp_and_hold (baseline),LINEAR,CONSTANT,1.0,grid
-sim_018,COMPLETED,14.0,0.8,4.35,1.19,51,32334,128316,2026-09-19 21:15:00,dataset/sim_018,ramp_and_hold (baseline),LINEAR,CONSTANT,1.0,grid
-sim_019,COMPLETED,14.0,1.2,4.35,1.13,51,32334,128316,2026-09-19 21:15:04,dataset/sim_019,ramp_and_hold (baseline),LINEAR,CONSTANT,1.0,grid
+sim_id,status,c1,Tmax,ca0,execution_time_sec,vtk_count,nodal_rows,element_rows,timestamp,folder,lc_profile,lc_interp,lc_extend,lc_Amax,sampling_mode,pre_stretch
+sim_001,COMPLETED,13.8,0.8,4.1,1.17,51,32334,128316,2026-09-06 22:31:09,dataset/sim_001,ramp_and_hold (baseline),LINEAR,CONSTANT,1.0,random (legacy),1.0
+sim_002,COMPLETED,11.3,1.1,4.5,1.07,51,32334,128316,2026-09-06 22:31:13,dataset/sim_002,ramp_and_hold (baseline),LINEAR,CONSTANT,1.0,random (legacy),1.0
+sim_003,COMPLETED,15.4,0.8,4.2,1.01,51,32334,128316,2026-09-06 22:31:17,dataset/sim_003,ramp_and_hold (baseline),LINEAR,CONSTANT,1.0,random (legacy),1.0
+sim_004,COMPLETED,10.2,0.9,4.3,1.0,51,32334,128316,2026-09-06 22:31:20,dataset/sim_004,ramp_and_hold (baseline),LINEAR,CONSTANT,1.0,random (legacy),1.0
+sim_005,COMPLETED,10.2,0.9,4.4,1.02,51,32334,128316,2026-09-06 22:31:24,dataset/sim_005,ramp_and_hold (baseline),LINEAR,CONSTANT,1.0,random (legacy),1.0
+sim_006,COMPLETED,13.3,0.9,4.5,1.26,51,32334,128316,2026-09-07 23:24:11,dataset/sim_006,ramp_and_hold (baseline),LINEAR,CONSTANT,1.0,random (legacy),1.0
+sim_007,COMPLETED,10.4,1.0,3.9,1.13,51,32334,128316,2026-09-07 23:24:15,dataset/sim_007,ramp_and_hold (baseline),LINEAR,CONSTANT,1.0,random (legacy),1.0
+sim_008,COMPLETED,13.0,0.9,4.4,1.22,51,32334,128316,2026-09-13 19:24:38,dataset/sim_008,twitch,SMOOTH,CONSTANT,0.67,random (legacy),1.0
+sim_009,COMPLETED,11.5,1.0,4.0,1.18,51,32334,128316,2026-09-13 19:24:42,dataset/sim_009,ramp_and_hold,LINEAR,CONSTANT,0.56,random (legacy),1.0
+sim_010,COMPLETED,15.9,0.8,4.5,1.25,51,32334,128316,2026-09-13 19:24:46,dataset/sim_010,ramp_and_hold,LINEAR,CONSTANT,0.59,random (legacy),1.0
+sim_011,COMPLETED,13.7,1.2,4.3,1.25,51,32334,128316,2026-09-13 19:24:50,dataset/sim_011,twitch,SMOOTH,CONSTANT,0.97,random (legacy),1.0
+sim_012,COMPLETED,15.5,0.9,4.4,1.16,51,32334,128316,2026-09-13 19:24:54,dataset/sim_012,ramp_and_hold,LINEAR,CONSTANT,0.87,random (legacy),1.0
+sim_013,COMPLETED,10.5,1.2,3.9,1.22,51,32334,128316,2026-09-13 19:24:58,dataset/sim_013,ramp_and_hold,LINEAR,CONSTANT,0.61,random (legacy),1.0
+sim_014,COMPLETED,15.8,1.0,4.3,1.12,51,32334,128316,2026-09-13 19:25:02,dataset/sim_014,ramp_and_hold,LINEAR,CONSTANT,0.92,random (legacy),1.0
+sim_015,COMPLETED,10.3,1.0,3.8,1.11,51,32334,128316,2026-09-13 19:25:06,dataset/sim_015,cyclic,LINEAR,REPEAT,0.65,random (legacy),1.0
+sim_016,COMPLETED,10.0,0.8,4.35,1.25,51,32334,128316,2026-09-19 21:14:52,dataset/sim_016,ramp_and_hold (baseline),LINEAR,CONSTANT,1.0,grid,1.0
+sim_017,COMPLETED,10.0,1.2,4.35,1.14,51,32334,128316,2026-09-19 21:14:56,dataset/sim_017,ramp_and_hold (baseline),LINEAR,CONSTANT,1.0,grid,1.0
+sim_018,COMPLETED,14.0,0.8,4.35,1.19,51,32334,128316,2026-09-19 21:15:00,dataset/sim_018,ramp_and_hold (baseline),LINEAR,CONSTANT,1.0,grid,1.0
+sim_019,COMPLETED,14.0,1.2,4.35,1.13,51,32334,128316,2026-09-19 21:15:04,dataset/sim_019,ramp_and_hold (baseline),LINEAR,CONSTANT,1.0,grid,1.0
+sim_020,COMPLETED,13.5,1.2,4.2,2.3,51,32334,128316,2026-09-30 00:41:55,dataset/sim_020,cyclic,LINEAR,CONSTANT,0.61,random,1.04
+sim_021,COMPLETED,12.0,1.2,4.7,2.36,51,32334,128316,2026-09-30 00:42:00,dataset/sim_021,cyclic,SMOOTH,CONSTANT,0.74,random,1.06
+sim_022,COMPLETED,13.5,1.2,4.2,1.59,51,32334,128316,2026-09-30 01:19:12,dataset/sim_022,cyclic,LINEAR,CONSTANT,0.61,random,1.0

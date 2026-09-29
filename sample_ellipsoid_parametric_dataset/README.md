@@ -20,6 +20,7 @@ Batch execution and feature extraction pipeline for active muscle contraction si
 ```text
 sample_ellipsoid_parametric_dataset/
 ├── ellipsoid-muscle-contraction.feb   # Base simulation template (<plotfile type="vtk">)
+├── ellipsoid-muscle-prestretch.feb    # In-situ prestretch simulation template
 ├── dataset_manifest.csv               # Summary table of all runs, parameters, and load curves
 ├── dataset_manifest.json              # Full dataset provenance and per-run metadata
 ├── README.md                          # Usage and configuration guide
@@ -95,11 +96,22 @@ EXPLICIT_RUNS = [
 
 ---
 
+## In-Situ Prestretch (Approach 1: Uniform In-Situ Stretch)
+
+The module supports resting muscle prestretch through an element-wise in-situ stretch mapping (`uncoupled prestrain elastic` material):
+* **Default Mode:** `ENABLE_PRESTRETCH = False` in `config.py` (guarantees baseline behavior without prestrain).
+* **CLI Overrides:** Pass `--prestretch` to enable or `--no-prestretch` to disable without altering config files.
+* **Dynamic Template Selection:** Automatically switches to `ellipsoid-muscle-prestretch.feb` when active.
+* **ElementData Injection:** Injects sampled values into `<ElementData name="pre_stretch">` across all 2,516 elements.
+* **Pre-Flight Validation:** Inspects template XML before solving and reports the number of dynamically mapped elements in the pre-flight banner.
+
+---
+
 ## Pre-Flight Verification & Safeguards
 
 To prevent configuration errors and unintended long runs, the pipeline includes built-in failsafes:
 * **Pre-Flight Banner:** Displays active sampling mode, total planned runs, ID range, and parameter axes before starting.
-* **Combinatorial Explosion Safeguard:** If a grid sweep produces more simulations than `GRID_MAX_SIMS_SAFEGUARD` (default: 50 for ellipsoid), the script halts immediately with an informative message unless `--force` is provided.
+* **Grid Size Limit Safeguard:** If a grid sweep produces more simulations than `GRID_MAX_SIMS_SAFEGUARD` (default: 50 for ellipsoid), the script halts immediately with an informative message unless `--force` is provided.
 * **Single Mode Enforcement:** Raises a clear error if an invalid or misspelled mode name is supplied.
 
 ### Dry-Run Inspection (`--dry-run`)
@@ -149,6 +161,9 @@ python scripts/generate_dataset.py --mode grid
 # Run Monte Carlo random batch of 5 runs
 python scripts/generate_dataset.py --mode random --num-sims 5
 
+# Run Monte Carlo random batch with in-situ prestretch
+python scripts/generate_dataset.py --mode random --num-sims 5 --prestretch
+
 # Run explicit predefined recipes
 python scripts/generate_dataset.py --mode explicit_list
 
@@ -163,7 +178,7 @@ python scripts/generate_dataset.py --overwrite
 ### 1. Summary Manifest (`dataset_manifest.csv`)
 Tabular record of all runs:
 * `sim_id`, `sampling_mode`, `status` (`COMPLETED` / `FAILED`)
-* Constitutive parameters: `c1`, `Tmax`, `ca0`
+* Constitutive parameters: `c1`, `Tmax`, `ca0`, `pre_stretch`
 * Excitation parameters: `lc_profile`, `lc_interp`, `lc_extend`, `lc_Amax`
 * Solver metrics: `execution_time_sec`, `vtk_count`, `nodal_rows`, `element_rows`
 

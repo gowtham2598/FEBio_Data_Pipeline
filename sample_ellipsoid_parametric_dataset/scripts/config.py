@@ -9,8 +9,24 @@ SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
 MODULE_ROOT = os.path.abspath(os.path.join(SCRIPTS_DIR, ".."))
 
 BASE_TEMPLATE_PATH = os.path.join(MODULE_ROOT, "ellipsoid-muscle-contraction.feb")
+PRESTRETCH_TEMPLATE_PATH = os.path.join(MODULE_ROOT, "ellipsoid-muscle-prestretch.feb")
 DATASET_DIR = os.path.join(MODULE_ROOT, "dataset")
 FEBIO_SOLVER_PATH = "/home/gv2598/FEBioStudio/bin/febio4"
+
+# -------------------------------------------------------------
+# Pre-Stretch Configuration (Approach 1: Uniform In-Situ Prestretch)
+# False (default): Standard active contraction without prestrain (zero regression).
+# True: Uses prestretch template with element-wise in-situ stretch mapping.
+# Can be overridden dynamically via CLI: --prestretch / --no-prestretch.
+# -------------------------------------------------------------
+ENABLE_PRESTRETCH = False
+
+# Discrete in-situ stretch values for grid sweeps (e.g. 1.02 = +2%, 1.05 = +5% elongation)
+GRID_PRESTRETCH_VALUES = [1.02, 1.05]
+
+# Continuous range for Monte Carlo random sampling
+RANDOM_PRESTRETCH_RANGE = (1.01, 1.08)
+RANDOM_PRESTRETCH_PRECISION = 2
 
 # -------------------------------------------------------------
 # Sampling Mode Selection

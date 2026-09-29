@@ -13,6 +13,32 @@ Batch execution and feature extraction pipeline for active muscle contraction si
 * **Fiber Alignment:** Longitudinal and pennate fiber orientations
 * **Material Model:** Transversely isotropic Mooney-Rivlin matrix coupled with active contraction (`<ascl lc="1">`)
 * **Computational Footprint:** ~105s solver + ~2.5 min feature extraction (~4.5 min total per run; ~5.7 GB raw output per run).
+---
+
+## Directory Structure
+
+```text
+sample_ta_parametric_dataset/
+├── ta-muscle-contraction.feb          # Base simulation template (<plotfile type="vtk">)
+├── dataset_manifest.csv               # Summary table of all runs, parameters, and load curves
+├── dataset_manifest.json              # Full dataset provenance and per-run metadata
+├── README.md                          # Usage and configuration guide
+├── scripts/
+│   ├── config.py                      # Parameter bounds, curve settings, and run options
+│   ├── data_extraction.py             # VTK field extraction and metadata parser
+│   └── generate_dataset.py            # Batch execution orchestrator
+└── dataset/
+    ├── sim_001/                       # Simulation run directory
+    │   ├── sim_001.feb                # Injected model input
+    │   ├── sim_001.log                # Solver log
+    │   ├── sim_001.0.vtk ... .50.vtk  # Timestep VTK meshes (51 timesteps)
+    │   ├── febio_execution.log        # Process execution log
+    │   ├── simulation_metadata.json   # Run metadata and load curve linkages
+    │   ├── nodal_timeseries.csv       # Coordinates, displacements, reaction forces
+    │   └── element_timeseries.csv     # Stresses, strains, relative volume, fiber stretch
+    └── ...
+```
+
 
 ---
 

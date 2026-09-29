@@ -1,8 +1,8 @@
-# FEBio to ML Data Extraction Pipeline
+# FEBio Parametric Muscle Contraction Dataset Generation Pipeline
 
 ## 1. Project Overview
 
-This repository contains a Python-based data extraction pipeline for active muscle contraction simulations in FEBio. The pipeline parses simulation input specifications (`.feb`), extracts displacement and stress-strain fields from sequential mesh exports (`.vtk`), and exports tabular time-series datasets (`.csv`) alongside structural metadata (`.json`) for training machine learning surrogate models.
+This repository contains an end-to-end framework for **generating, simulating, and extracting large-scale parametric datasets** of active skeletal muscle contractions in FEBio. The pipeline automates multi-dimensional parameter sampling (constitutive material properties, dynamic excitation waveforms, and in-situ prestretch), executes simulations headlessly via the FEBio command-line solver, and extracts sequential volumetric mesh exports (`.vtk`) into machine-learning-ready tabular time-series datasets (`.csv`) with comprehensive provenance metadata (`.json`).
 
 ---
 
@@ -10,17 +10,19 @@ This repository contains a Python-based data extraction pipeline for active musc
 
 ```text
 data_pipeline/
-├── data_pipeline_extraction.ipynb         # Interactive data extraction notebook
+├── ADDING_A_NEW_MUSCLE.md                 # Extension guide: Step-by-step tutorial for adding new geometries
+├── data_pipeline_extraction.ipynb         # Interactive single-run baseline extraction notebook
 ├── ellipsoid-muscle-contraction.feb        # Baseline FEBio input model (ellipsoid geometry)
 ├── ellipsoid-muscle-contraction.fsm        # FEBio Studio model project
-├── nodal_timeseries.csv                   # Extracted nodal time-series dataset (32,334 rows)
-├── element_timeseries.csv                 # Extracted element time-series dataset (128,316 rows)
+├── nodal_timeseries.csv                   # Baseline extracted nodal time-series (32,334 rows)
+├── element_timeseries.csv                 # Baseline extracted element time-series (128,316 rows)
 ├── node_to_element_map.json               # Mesh topology mapping (node -> adjacent elements)
 ├── simulation_metadata.json               # Extracted material, solver, and load curve metadata
 ├── scripts/
-│   └── data_extraction.py                # Standalone extraction script
+│   └── data_extraction.py                # Standalone single-run extraction script
 ├── sample_ellipsoid_parametric_dataset/   # Batch generator: Idealized Ellipsoid (634 nodes)
 │   ├── ellipsoid-muscle-contraction.feb   # Base simulation template (<plotfile type="vtk">)
+│   ├── ellipsoid-muscle-prestretch.feb    # In-situ prestretch simulation template
 │   ├── dataset_manifest.csv              # Summary table of all simulation runs
 │   ├── dataset_manifest.json             # Provenance record (parameters, metrics, file paths)
 │   ├── README.md                         # Usage guide for ellipsoid parametric sweeps
@@ -115,7 +117,7 @@ FEBio supports boundary behavior rules when simulation time exceeds the defined 
 
 ---
 
-## 7. Workflow & Usage
+## 7. Interactive Single-Run Baseline & Validation
 
 The pipeline runs in two distinct phases: **Simulation Execution (FEBio)** followed by **Data Extraction (Python/Notebook)**.
 
@@ -162,19 +164,20 @@ The pipeline runs in two distinct phases: **Simulation Execution (FEBio)** follo
 
 For parametric studies across constitutive parameters ($c_1, T_{\max}, ca_0$) and excitation dynamics, self-contained batch orchestrators are provided across three muscle geometries:
 
-1. **Idealized Fusiform Ellipsoid:** [`sample_ellipsoid_parametric_dataset/`](sample_ellipsoid_parametric_dataset/) (634 nodes, 2,516 elements; ~1.2s per run)
-2. **Anatomical Human Biceps Brachii:** [`sample_biceps_parametric_dataset/`](sample_biceps_parametric_dataset/) (4,749 nodes, 15,857 elements; ~8s per run)
-3. **Anatomical Human Tibialis Anterior (TA):** [`sample_ta_parametric_dataset/`](sample_ta_parametric_dataset/) (44,684 nodes, 196,999 elements; ~4.5 min per run)
+1. **Idealized Fusiform Ellipsoid:** [`sample_ellipsoid_parametric_dataset/`](sample_ellipsoid_parametric_dataset/README.md) (634 nodes, 2,516 elements; ~1.2s per run) — [Ellipsoid Guide](sample_ellipsoid_parametric_dataset/README.md)
+2. **Anatomical Human Biceps Brachii:** [`sample_biceps_parametric_dataset/`](sample_biceps_parametric_dataset/README.md) (4,749 nodes, 15,857 elements; ~8s per run) — [Biceps Guide](sample_biceps_parametric_dataset/README.md)
+3. **Anatomical Human Tibialis Anterior (TA):** [`sample_ta_parametric_dataset/`](sample_ta_parametric_dataset/README.md) (44,684 nodes, 196,999 elements; ~4.5 min per run) — [TA Guide](sample_ta_parametric_dataset/README.md)
 
 ### Flexible Sampling Modes & CLI Options
 Each module's `scripts/config.py` and `scripts/generate_dataset.py` support three operational sampling modes:
 * **Deterministic Grid Sweeps (`--mode grid`):** Cartesian product across discrete values or step-wise ranges. Includes a load curve toggle (`GRID_INCLUDE_LOAD_CURVE = False | True`) to choose between keeping excitation fixed at baseline or varying excitation systematically.
 * **Monte Carlo Random Sampling (`--mode random`):** Uniform sampling within continuous parameter intervals with optional randomized dynamic waveforms (`ENABLE_VARYING_LOAD_CURVES`).
 * **Explicit Custom Recipes (`--mode explicit_list`):** Iterates through predefined simulation dictionaries.
+* **In-Situ Prestretch Toggle (`--prestretch` / `--no-prestretch`):** Dynamically enables resting fiber elongation via element-wise `<ElementData>` mapping with automatic template validation.
 
 ### Pre-Flight Verification & Safeguards
 * **Pre-Flight Banner:** Confirms the active sampling mode, total planned runs, target simulation ID range, and parameter axes before solving.
-* **Safe Run Thresholds:** Failsafe limits (`GRID_MAX_SIMS_SAFEGUARD`) prevent unintended combinatorial explosions from high mesh counts (bypassed with `--force`).
+* **Safe Run Thresholds:** Failsafe limits (`GRID_MAX_SIMS_SAFEGUARD`) prevent excessively large parameter grid sweeps from triggering long compute batches without confirmation (override with `--force`).
 * **Dry-Run Inspection (`--dry-run`):** Displays a full preview table of the planned simulation queue, auto-resumed simulation IDs, and parameter values without executing the solver or modifying any files on disk.
 
 ```bash
@@ -192,4 +195,20 @@ python scripts/generate_dataset.py --mode grid
 
 # Run Monte Carlo random batch of 5 runs
 python scripts/generate_dataset.py --mode random --num-sims 5
+
+# Run Monte Carlo random batch with in-situ prestretch
+python scripts/generate_dataset.py --mode random --num-sims 5 --prestretch
 ```
+
+---
+
+## 9. Extending the Pipeline: Adding New Muscle Geometries
+
+The data generation pipeline is strictly geometry-agnostic and modular. To integrate a new anatomical muscle geometry (e.g. *Gastrocnemius*, *Soleus*, *Rectus Femoris*):
+
+1. **Prepare Template in FEBio Studio**: Export a verified `.feb` file with `DYNAMIC` 50-step analysis and `<plotfile type="vtk">`. (Optionally configure `uncoupled prestrain elastic` if in-situ prestretch is desired).
+2. **Duplicate Module Folder**: Copy `sample_biceps_parametric_dataset/` to `sample_<new_muscle>_parametric_dataset/`.
+3. **Configure Bounds**: In `scripts/config.py`, point to the new `.feb` file and define muscle-specific physiological parameter ranges.
+4. **Generate**: Run `python scripts/generate_dataset.py --mode random --num-sims 20`.
+
+**Extension Guide:** For detailed XML specifications, in-situ prestretch setup, and module customization, refer to [`ADDING_A_NEW_MUSCLE.md`](./ADDING_A_NEW_MUSCLE.md).
